@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{E5AE4486CD6E14F8}locks/unlock.edds"
+ Author "desktop-cjp9n6b"
+ ChangeDate -1478759596
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "unlock.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

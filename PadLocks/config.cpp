@@ -2,7 +2,7 @@ class CfgPatches
 {
   class PadLocks
   {
-    requiredAddons[]={}; 
+    requiredAddons[]={ "DZ_Data" }; 
   };
 };
 
@@ -12,7 +12,7 @@ class CfgMods
   {
     name="PadLocks";
     type="mod"
-	dependencies[]={"Game", "World", "Mission"};
+	dependencies[]={ "Game", "World", "Mission" };
 	class defs
 	{
 		class gameScriptModule

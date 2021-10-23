@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{CBF05582C525E9F6}locks/down.edds"
+ Author "desktop-cjp9n6b"
+ ChangeDate -1717310636
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "down.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}
