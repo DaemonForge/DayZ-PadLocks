@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{F081613F08171493}PadLocks/gui/images/set.png"
+ Author "desktop-cjp9n6b"
+ ChangeDate 836037464
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "set.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

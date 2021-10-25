@@ -21,7 +21,7 @@ class CfgMods
             files[]={
 				"PadLocks/scripts/3_Game"
 			};
-         };
+        };
 		class worldScriptModule
         {
             value="";
@@ -38,4 +38,18 @@ class CfgMods
         };
     };
   };
+};
+class CfgVehicles
+{
+	class Inventory_Base;
+	class PadLock: Inventory_Base
+	{
+		scope = 2;
+		displayName = "PadLock";
+		descriptionShort = "A simple PadLock for locking your shit up";
+		model = "PadLocks\data\Padlock.p3d";
+		inventorySlot[] = {"Att_CombinationLock"};
+		itemSize[] = {1,2};
+		weight = 350;
+	};
 };
