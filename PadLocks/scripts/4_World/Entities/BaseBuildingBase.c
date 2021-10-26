@@ -1,25 +1,24 @@
 modded class BaseBuildingBase extends ItemBase
 {
 	
-	Padlock GetPadlock(){
-		int slot_id = InventorySlots.GetSlotIdFromString("Att_CombinationLock");
-		if (slot_id != InventorySlots.INVALID){
-			return  Padlock.Cast( GetInventory().FindAttachment(slot_id) ); 
-		}
-		return NULL;
+}
+
+modded class ItemBase  extends InventoryItem {
+
+	Padlock GetPadlock() {
+		return Padlock.Cast( GetAttachmentByType(Padlock) ); 
 	}
 	
-	bool CanUnlockDoor(PlayerBase player){
+	bool CanUnlockPadlock(PlayerIdentity player) {
 		Padlock lock = GetPadlock();
 		if (lock){
-			return lock.CanUnlock(player) && !IsOpened();
+			return lock.CanUnlock(player);
 		}
 		return true;
 	}
 	
 	
-	bool IsLocked()
-	{
+	bool IsPadlocked() {
 		Padlock lock = GetPadlock();
 		if ( lock && lock.IsLocked() )
 		{
@@ -31,11 +30,17 @@ modded class BaseBuildingBase extends ItemBase
 
 modded class Fence extends BaseBuildingBase {
 
+	
+	override bool IsLocked() {		
+		return super.IsLocked() || IsPadlocked();
+	}
+	
 	override void SetActions()
 	{
 		super.SetActions();
 		
 		AddAction(ActionLockOpenFence);
+		AddAction(ActionSetPadlockPin);
 	}
 
 }

@@ -113,7 +113,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialUp0 {
-   ignorepointer 1
+   ignorepointer 0
    position 45 18
    size 48 28
    hexactpos 1
@@ -139,7 +139,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialDown0 {
-   ignorepointer 1
+   ignorepointer 0
    position 45 148
    size 48 28
    hexactpos 1
@@ -165,7 +165,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialUp1 {
-   ignorepointer 1
+   ignorepointer 0
    position 115 18
    size 48 28
    hexactpos 1
@@ -191,7 +191,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialDown1 {
-   ignorepointer 1
+   ignorepointer 0
    position 115 148
    size 48 28
    hexactpos 1
@@ -217,7 +217,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialUp2 {
-   ignorepointer 1
+   ignorepointer 0
    position 185 18
    size 48 28
    hexactpos 1
@@ -243,7 +243,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialDown2 {
-   ignorepointer 1
+   ignorepointer 0
    position 181 148
    size 48 28
    hexactpos 1
@@ -269,7 +269,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialDown3 {
-   ignorepointer 1
+   ignorepointer 0
    position 245 150
    size 48 28
    hexactpos 1
@@ -295,7 +295,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass DialUp3 {
-   ignorepointer 1
+   ignorepointer 0
    position 245 18
    size 48 28
    hexactpos 1
@@ -321,7 +321,7 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass Unlock {
-   ignorepointer 1
+   ignorepointer 0
    position 24 0
    size 56 64
    halign right_ref

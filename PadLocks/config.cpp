@@ -42,7 +42,7 @@ class CfgMods
 class CfgVehicles
 {
 	class Inventory_Base;
-	class PadLock: Inventory_Base
+	class Padlock: Inventory_Base
 	{
 		scope = 2;
 		displayName = "PadLock";

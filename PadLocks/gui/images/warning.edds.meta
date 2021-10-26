@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{295A347782444792}PadLocks/gui/images/warning.edds"
+ Author "desktop-cjp9n6b"
+ ChangeDate 1112271705
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "warning.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}
