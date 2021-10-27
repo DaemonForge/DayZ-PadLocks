@@ -14,7 +14,6 @@ class PadlockInterface extends PadlockInterfaceBase
 		pin = pin + (m_Combination[1] * 100);
 		pin = pin + (m_Combination[2] * 10);
 		pin = pin + m_Combination[3];
-		Print("Pin Sent(Unlock): " + pin);
 		if (m_Padlock ){
 			m_Padlock.RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(pin), true);
 		}
@@ -25,7 +24,6 @@ class PadlockInterface extends PadlockInterfaceBase
 		pin = pin + (m_Combination[1] * 100);
 		pin = pin + (m_Combination[2] * 10);
 		pin = pin + m_Combination[3];
-		Print("Pin Sent(ResetPin): " + pin);
 		if (m_Padlock ){
 			m_Padlock.RPCSingleParam(PADLOCK_RESETREQUEST, new Param1<int>(pin), true);
 		}
@@ -35,11 +33,7 @@ class PadlockInterface extends PadlockInterfaceBase
 	override void SetPadLock(EntityAI lock){
 		m_Padlock = Padlock.Cast(lock);
 		m_Padlock.SetInterface(this);
-		if (m_Padlock.HasCombination()){
-			RefreshButtons(UNLOCKIMAGE);
-		} else {
-			RefreshButtons(SETIMAGE);
-		}
+		RefreshVisuals();
 	}
 	
 	
@@ -54,11 +48,7 @@ class PadlockInterface extends PadlockInterfaceBase
 		NotificationSystem.CreateNotification(new StringLocaliser("PadLocks"), new StringLocaliser("Attempts Too Quick"), PADLOCK_WARNINGIMAGE, ARGB(255,255,255,255), 10);
 	}
 	
-	void OnReset(){
-		if (!m_Padlock){
-			GetGame().GetUIManager().CloseMenu(PADLOCK_INTERFACE);
-		}
-		RefreshButtons();
+	void RefreshVisuals(){
 		
 		if (m_Padlock.HasCombination()){
 			RefreshButtons(UNLOCKIMAGE);
@@ -69,12 +59,11 @@ class PadlockInterface extends PadlockInterfaceBase
 		}
 	}
 	
-	bool OnKeyPress(Widget w, int x, int y, int key)
-	{
-		if (key == KeyCode.KC_ESCAPE){
+	void OnReset(){
+		if (!m_Padlock){
 			GetGame().GetUIManager().CloseMenu(PADLOCK_INTERFACE);
 		}
-		
-		return super.OnKeyPress(w,x,y,key);
+		RefreshVisuals();
 	}
+	
 }

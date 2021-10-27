@@ -188,63 +188,49 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		int idx = 0;
 			EditBoxWidget textB = EditBoxWidget.Cast(w);
 			string d0 = textB.GetText();
-			if (ValidInput(d0) && d0.Length() > 0){
+			if (d0.Length() > 0){
 				int lastidx = d0.Length() - 1;
 				string first = d0.Substring(0,1);
 				string last = d0.Substring(lastidx,1);
 				switch (w) {
 					case m_Diget0:
-						if (first == m_LastValues[0]){
-							textB.SetText(last);
-						} else {
-							textB.SetText(first);
-						}
+						idx = 0;
 					break;
 					case m_Diget1:
-						if (first == m_LastValues[1]){
-							textB.SetText(last);
-						} else {
-							textB.SetText(first);
-						}
+						idx = 1;
 					break;
 					case m_Diget2:
-						if (first == m_LastValues[2]){
-							textB.SetText(last);
-						} else {
-							textB.SetText(first);
-						}
+						idx = 2;
 					break;
 					case m_Diget3:
-						if (first == m_LastValues[3]){
-							textB.SetText(last);
-						} else {
-							textB.SetText(first);
-						}
+						idx = 3;
 					break;
 				}
+				if (first == m_LastValues[idx]){
+					d0 = last;
+				} else {
+					d0 = first;
+				}
+				if (ValidInput(d0)){
+					textB.SetText(d0);
+					m_LastValues[idx] = d0;
+					m_Combination[idx] = d0.ToInt();
+					switch (w) {
+						case m_Diget0:
+							SetFocus(m_Diget1);
+						break;
+						case m_Diget1:
+							SetFocus(m_Diget2);
+						break;
+						case m_Diget2:
+							SetFocus(m_Diget3);
+						break;
+					}
+				} else {
+					textB.SetText(m_LastValues[idx]);
+				}
 			} else {
-				textB.SetText("");
-			}
-			switch (w) {
-				case m_Diget0:
-					m_LastValues[0] = textB.GetText();
-					m_Combination[0] = textB.GetText().ToInt();
-					SetFocus(m_Diget1);
-				break;
-				case m_Diget1:
-					m_LastValues[1] = textB.GetText();
-					m_Combination[1] = textB.GetText().ToInt();
-					SetFocus(m_Diget2);
-				break;
-				case m_Diget2:
-					m_LastValues[2] = textB.GetText();
-					m_Combination[2] = textB.GetText().ToInt();
-					SetFocus(m_Diget3);
-				break;
-				case m_Diget3:
-					m_LastValues[3] = textB.GetText();
-					m_Combination[3] = textB.GetText().ToInt();
-				break;
+				textB.SetText("0");
 			}
 			return true;
 		}
@@ -257,6 +243,15 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		}
 		return false;
     }
+	
+	override void Update( float timeslice )
+	{
+		super.Update( timeslice );
+		if( GetGame().GetInput().LocalPress( "UAUIBack", false ) )
+		{
+			GetGame().GetUIManager().CloseMenu(PADLOCK_INTERFACE);
+		}		
+	}
 	
 	protected void RALockControls() {
         GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_INVENTORY);

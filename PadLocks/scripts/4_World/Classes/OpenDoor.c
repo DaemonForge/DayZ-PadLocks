@@ -1,20 +1,13 @@
 class ActionLockOpenFence: ActionOpenFence
 {
-	bool IsLockedDoor = false;
 	override string GetText() {
-		if (IsLockedDoor){ return "Unlock Padlocked Door"; }
-		return "Open Padlocked Door";
+		return "Unlock Padlocked Door";
 	}
 
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item )
 	{
 		Fence fence;
-		if ( (Class.CastTo(fence, target.GetObject()) || Class.CastTo(fence, target.GetParent())) && fence.CanUseConstruction() && fence.IsPadlocked() && !fence.IsOpened()) {
-			if (!fence.CanUnlockPadlock(player.GetIdentity())){
-				IsLockedDoor = true;
-			} else {
-				IsLockedDoor = false;
-			}
+		if ( (Class.CastTo(fence, target.GetObject()) || Class.CastTo(fence, target.GetParent())) && fence.CanUseConstruction() && fence.IsPadlocked() && !fence.IsOpen()) {
 			return true;
 		}
 		return false;
@@ -54,9 +47,9 @@ class ActionSetPadlockPin extends ActionInteractBase {
 	
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item )
 	{
-		Fence fence;
+		ItemBase fence;
 		if ( (Class.CastTo(fence, target.GetObject()) || Class.CastTo(fence, target.GetParent())) ){
-			if ( fence.CanUseConstruction() && fence.GetPadlock() && !fence.IsPadlocked() && !fence.IsOpened()) {
+			if ( fence.GetPadlock() && !fence.IsPadlocked() && !fence.IsOpen()) {
 				return true;
 			}
 		}
@@ -64,7 +57,7 @@ class ActionSetPadlockPin extends ActionInteractBase {
 	}
 		
 	override void OnStartServer( ActionData action_data ) {
-		Fence fence;
+		ItemBase fence;
 		PlayerBase player = PlayerBase.Cast(action_data.m_Player);
 		if ((Class.CastTo(fence, action_data.m_Target.GetObject()) || Class.CastTo(fence, action_data.m_Target.GetParent())) && fence.GetPadlock() && player && player.GetIdentity()){
 			fence.GetPadlock().RPCSingleParam(PADLOCK_OPENREQUEST, new Param1<bool>(true), true, player.GetIdentity());
@@ -80,5 +73,6 @@ modded class ActionConstructor {
 		super.RegisterActions(actions);
 		actions.Insert(ActionLockOpenFence);
 		actions.Insert(ActionSetPadlockPin);
+		actions.Insert(ActionOpenLockInterface);
 	}
 };

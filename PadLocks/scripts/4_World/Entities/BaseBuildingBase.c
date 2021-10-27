@@ -1,6 +1,8 @@
-modded class BaseBuildingBase extends ItemBase
+modded class Fence extends ItemBase
 {
-	
+	override bool IsOpen(){
+		return IsOpened();
+	}
 }
 
 modded class ItemBase  extends InventoryItem {
@@ -16,7 +18,6 @@ modded class ItemBase  extends InventoryItem {
 		}
 		return true;
 	}
-	
 	
 	bool IsPadlocked() {
 		Padlock lock = GetPadlock();
@@ -41,6 +42,7 @@ modded class Fence extends BaseBuildingBase {
 		
 		AddAction(ActionLockOpenFence);
 		AddAction(ActionSetPadlockPin);
+		AddAction(ActionOpenLockInterface);
 	}
 
 }
