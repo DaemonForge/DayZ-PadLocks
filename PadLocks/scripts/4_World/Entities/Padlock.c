@@ -124,6 +124,11 @@ class Padlock extends ItemBase {
 	// --- VISUALS
 	void UpdateVisuals()
 	{
+		if ( IsLockAttached() ) {
+			GetGame().GetCallQueue( CALL_CATEGORY_GAMEPLAY ).CallLater( ShowAttached, 	0, false );
+		} else {
+			GetGame().GetCallQueue( CALL_CATEGORY_GAMEPLAY ).CallLater( HideAttached, 	0, false );
+		}
 	}
 	
 	protected void ShowAttached() {

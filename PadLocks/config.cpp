@@ -51,5 +51,12 @@ class CfgVehicles
 		inventorySlot[] = {"Att_CombinationLock"};
 		itemSize[] = {1,2};
 		weight = 350;
+		simpleHiddenSelections[] = {
+			"FenceLock"
+		};
+        hiddenSelections[]=
+        {
+			"FenceLock"
+        };
 	};
 };
