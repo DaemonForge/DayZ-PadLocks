@@ -59,4 +59,21 @@ class CfgVehicles
 			"FenceLock"
         };
 	};
+	class Padlock_Heavy: Padlock
+	{
+		scope = 2;
+		displayName = "Heavy PadLock";
+		descriptionShort = "A Heavy Duty PadLock for locking your shit up";
+		model = "PadLocks\data\HD_Padlock.p3d";
+		inventorySlot[] = {"Att_CombinationLock"};
+		itemSize[] = {1,2};
+		weight = 350;
+		simpleHiddenSelections[] = {
+			"FenceLock"
+		};
+        hiddenSelections[]=
+        {
+			"FenceLock"
+        };
+	};
 };

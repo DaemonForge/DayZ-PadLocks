@@ -9,6 +9,8 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	
 	protected ButtonWidget 				m_Unlock;
 	protected ButtonWidget 				m_Reset;
+	protected TextWidget 				m_Unlock_Hover;
+	protected TextWidget 				m_Reset_Hover;
 	
 	protected ImageWidget 				m_UnlockLabel;
 	
@@ -34,9 +36,11 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		
 		m_Unlock 				= ButtonWidget.Cast(layoutRoot.FindAnyWidget("Unlock"));
 		m_UnlockLabel			= ImageWidget.Cast(layoutRoot.FindAnyWidget("Unlock_Label"));
+		m_Unlock_Hover 			= TextWidget.Cast(layoutRoot.FindAnyWidget("Unlock_Hover"));
 		m_UnlockLabel.LoadImageFile(0,UNLOCKIMAGE);
 		
 		m_Reset 				= ButtonWidget.Cast(layoutRoot.FindAnyWidget("Reset"));
+		m_Reset_Hover 			= TextWidget.Cast(layoutRoot.FindAnyWidget("Reset_Hover"));
 		
 		m_Diget0Up 				= ButtonWidget.Cast(layoutRoot.FindAnyWidget("DialUp0"));
 		m_Diget1Up 				= ButtonWidget.Cast(layoutRoot.FindAnyWidget("DialUp1"));
@@ -141,6 +145,9 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		m_UnlockLabel.LoadImageFile(0,image);
 	}
 	
+	protected string GetUnlockText(){
+		return "#unlock";
+	}
 	
 	protected void ResetBlanks(){
 		if (m_Diget0.GetText() == ""){
@@ -180,6 +187,30 @@ class PadlockInterfaceBase extends UIScriptedMenu
 			break;
 		}
 		m_LastValues[index] = m_Combination[index].ToString();
+	}
+	
+	override bool OnMouseEnter(Widget w, int x, int y)
+	{
+		if (w == m_Unlock){
+			m_Unlock_Hover.SetText(GetUnlockText());
+			m_Unlock_Hover.Show(true);
+		}
+		if (w == m_Reset){
+			m_Reset_Hover.Show(true);
+		}
+		return super.OnMouseEnter(w,x,y);
+	}
+	
+	override bool OnMouseLeave(Widget w, Widget enterW, int x, int y)
+	{
+		if (w == m_Unlock){
+			m_Unlock_Hover.Show(false);
+		}
+		if (w == m_Reset){
+			m_Reset_Hover.Show(false);
+		}
+		
+		return super.OnMouseLeave(w,enterW, x, y);
 	}
 	
 	override bool OnChange(Widget w, int x, int y, bool finished) {

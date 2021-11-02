@@ -1,4 +1,6 @@
+class Padlock_Heavy extends Padlock {
 
+}
 
 class Padlock extends ItemBase {
 	
@@ -245,13 +247,17 @@ class Padlock extends ItemBase {
 			if (ctx.Read(resetReq)) {
 				if (resetReq.param1 == PadLockRespones.SUCCESS){
 					GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_PadlockInterface.OnReset, 10);
+					m_LockActionPerformed == LockAction.UNLOCKED;
 				}
 				if (resetReq.param1 == PadLockRespones.INVALIDPIN){
 					m_PadlockInterface.OnInvalidPin();
+					m_LockActionPerformed == LockAction.LOCKED;
 				}
 				if (resetReq.param1 == PadLockRespones.RATELIMITED){
 					m_PadlockInterface.OnRateLimit();
+					m_LockActionPerformed == LockAction.LOCKED;
 				}
+					SetSynchDirty();
 			}
 		}
 		if (rpc_type == PADLOCK_RESETREQUEST && GetGame().IsServer() && sender) {

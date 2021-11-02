@@ -30,6 +30,13 @@ class PadlockInterface extends PadlockInterfaceBase
 		
 	}
 	
+	override protected string GetUnlockText(){
+		if (m_Padlock && m_Padlock.HasCombination()){
+			return "#unlock";
+		}
+		return "Set Pin";
+	}
+	
 	override void SetPadLock(EntityAI lock){
 		m_Padlock = Padlock.Cast(lock);
 		m_Padlock.SetInterface(this);

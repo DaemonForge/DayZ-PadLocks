@@ -1,21 +1,24 @@
-PanelWidgetClass rootFrame {
- color 0.2353 0.1922 0.2824 0.851
+ImageWidgetClass rootFrame {
  position 0 0
- size 480 290
+ size 762 323
  halign center_ref
  valign center_ref
  hexactpos 1
  vexactpos 1
  hexactsize 1
  vexactsize 1
- style rover_sim_colorable
+ image0 "PadLocks/gui/images/Padlock_UI.edds"
+ mode blend
+ "src alpha" 1
+ "no wrap" 0
+ stretch 1
  {
   PanelWidgetClass Center {
    clipchildren 0
    ignorepointer 1
    color 0 0 0 0.4902
-   position -32 0
-   size 280 90
+   position 0 0
+   size 364 72
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -25,19 +28,22 @@ PanelWidgetClass rootFrame {
    style rover_sim_colorable
    {
     EditBoxWidgetClass Diget0 {
-     position 10 0
-     size 56 80
+     color 0.8314 0.8314 0.8314 1
+     position 14 0
+     size 44 64
      valign center_ref
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
+     style Default
      text "0"
      "exact text" 0
     }
     EditBoxWidgetClass Diget1 {
-     position -32 0
-     size 56 80
+     color 0.8314 0.8314 0.8314 1
+     position -56 0
+     size 46 64
      halign center_ref
      valign center_ref
      hexactpos 1
@@ -47,8 +53,9 @@ PanelWidgetClass rootFrame {
      text "0"
     }
     EditBoxWidgetClass Diget2 {
-     position 36 0
-     size 56 80
+     color 0.8314 0.8314 0.8314 1
+     position 67 0
+     size 42 64
      halign center_ref
      valign center_ref
      hexactpos 1
@@ -58,8 +65,9 @@ PanelWidgetClass rootFrame {
      text "0"
     }
     EditBoxWidgetClass Diget3 {
-     position 8 0
-     size 56 80
+     color 0.8314 0.8314 0.8314 1
+     position 2 0
+     size 46 64
      halign right_ref
      valign center_ref
      hexactpos 1
@@ -114,8 +122,8 @@ PanelWidgetClass rootFrame {
     ButtonWidgetClass DialUp0 {
      clipchildren 1
      ignorepointer 0
-     position 11 -34
-     size 48 28
+     position 9 -30
+     size 48 26
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -123,6 +131,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass UpImage0 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -140,8 +149,8 @@ PanelWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown0 {
      ignorepointer 0
-     position 11 -34
-     size 48 28
+     position 9 -30
+     size 48 26
      valign bottom_ref
      hexactpos 1
      vexactpos 1
@@ -150,6 +159,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass DownImage0 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -167,8 +177,8 @@ PanelWidgetClass rootFrame {
     }
     ButtonWidgetClass DialUp1 {
      ignorepointer 0
-     position -34 -34
-     size 48 28
+     position -60 -30
+     size 48 26
      halign center_ref
      hexactpos 1
      vexactpos 1
@@ -177,6 +187,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass UpImage1 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -194,8 +205,8 @@ PanelWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown1 {
      ignorepointer 0
-     position -34 -34
-     size 48 28
+     position -60 -30
+     size 48 26
      halign center_ref
      valign bottom_ref
      hexactpos 1
@@ -205,6 +216,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass DownImage1 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -222,8 +234,8 @@ PanelWidgetClass rootFrame {
     }
     ButtonWidgetClass DialUp2 {
      ignorepointer 0
-     position 32 -34
-     size 48 28
+     position 64 -30
+     size 48 26
      halign center_ref
      hexactpos 1
      vexactpos 1
@@ -232,6 +244,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass UpImage2 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -249,8 +262,8 @@ PanelWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown2 {
      ignorepointer 0
-     position 32 -34
-     size 48 28
+     position 64 -30
+     size 48 26
      halign center_ref
      valign bottom_ref
      hexactpos 1
@@ -260,6 +273,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass DownImage3 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -277,8 +291,8 @@ PanelWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown3 {
      ignorepointer 0
-     position 14 -34
-     size 48 28
+     position 8 -30
+     size 48 26
      halign right_ref
      valign bottom_ref
      hexactpos 1
@@ -288,6 +302,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass DownImage2 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -305,8 +320,8 @@ PanelWidgetClass rootFrame {
     }
     ButtonWidgetClass DialUp3 {
      ignorepointer 0
-     position 14 -34
-     size 48 28
+     position 8 -29
+     size 48 26
      halign right_ref
      hexactpos 1
      vexactpos 1
@@ -315,6 +330,7 @@ PanelWidgetClass rootFrame {
      {
       ImageWidgetClass UpImage3 {
        ignorepointer 1
+       color 0.7882 0.7882 0.7882 1
        position 0 0
        size 1 1
        halign center_ref
@@ -333,9 +349,11 @@ PanelWidgetClass rootFrame {
    }
   }
   ButtonWidgetClass Unlock {
+   clipchildren 0
    ignorepointer 0
-   position 24 0
-   size 82 88
+   color 0.098 0.098 0.098 0.3961
+   position 60 0
+   size 52 56
    halign right_ref
    valign center_ref
    hexactpos 1
@@ -345,10 +363,10 @@ PanelWidgetClass rootFrame {
    {
     ImageWidgetClass Unlock_Label {
      ignorepointer 1
+     color 0.7882 0.7882 0.7882 1
      position 0 0
      size 1 1
-     halign center_ref
-     valign center_ref
+     halign right_ref
      hexactpos 0
      vexactpos 0
      hexactsize 0
@@ -358,9 +376,25 @@ PanelWidgetClass rootFrame {
      "src alpha" 1
      stretch 1
     }
+    TextWidgetClass Unlock_Hover {
+     visible 0
+     ignorepointer 1
+     position -30 -24
+     size 96 28
+     halign right_ref
+     valign bottom_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Set Code"
+     "text halign" center
+     "text valign" center
+    }
    }
   }
   PanelWidgetClass Top {
+   visible 0
    ignorepointer 1
    position 0 0
    size 1 2
@@ -372,6 +406,7 @@ PanelWidgetClass rootFrame {
    style rover_sim_colorable
   }
   PanelWidgetClass Botton {
+   visible 0
    ignorepointer 1
    size 1 2
    halign center_ref
@@ -383,6 +418,7 @@ PanelWidgetClass rootFrame {
    style rover_sim_colorable
   }
   PanelWidgetClass Right {
+   visible 0
    ignorepointer 1
    size 2 1
    halign right_ref
@@ -394,6 +430,7 @@ PanelWidgetClass rootFrame {
    style rover_sim_colorable
   }
   PanelWidgetClass Left {
+   visible 0
    ignorepointer 1
    position 0 0
    size 2 1
@@ -405,16 +442,20 @@ PanelWidgetClass rootFrame {
    style rover_sim_colorable
   }
   ButtonWidgetClass Reset {
-   position 12 12
-   size 52 44
-   halign right_ref
+   clipchildren 0
+   color 0.1569 0.1569 0.1569 0.5686
+   position 56 0
+   size 68.5 57
+   valign center_ref
    hexactpos 1
    vexactpos 1
    hexactsize 1
    vexactsize 1
    {
     ImageWidgetClass Reset_Label {
+     visible 1
      ignorepointer 1
+     color 0.7882 0.7882 0.7882 1
      position 0 0
      size 1 1
      halign center_ref
@@ -423,10 +464,26 @@ PanelWidgetClass rootFrame {
      vexactpos 0
      hexactsize 0
      vexactsize 0
-     image0 "PadLocks/gui/images/reset.edds"
+     image0 "PadLocks/gui/images/ResetButton.edds"
      mode blend
      "src alpha" 1
      stretch 1
+    }
+    TextWidgetClass Reset_Hover {
+     visible 0
+     ignorepointer 1
+     color 0.6353 0.6353 0.6353 1
+     position -36.6575 -3.07646
+     size 96 28
+     halign right_ref
+     valign bottom_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "Clear Pin"
+     "text halign" center
+     "text valign" center
     }
    }
   }

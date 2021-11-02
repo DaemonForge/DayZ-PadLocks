@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{98200D9DE06133D4}PadLocks/gui/images/dial.edds"
+ Author "desktop-cjp9n6b"
+ ChangeDate -1136923809
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "dial.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}
