@@ -52,11 +52,13 @@ class CfgVehicles
 		itemSize[] = {1,2};
 		weight = 350;
 		simpleHiddenSelections[] = {
-			"FenceLock"
+		   "Fence",
+		   "Ground"
 		};
         hiddenSelections[]=
         {
-			"FenceLock"
+		   "Fence",
+		   "Ground"
         };
 	};
 	class Padlock_Heavy: Padlock
@@ -69,11 +71,13 @@ class CfgVehicles
 		itemSize[] = {1,2};
 		weight = 350;
 		simpleHiddenSelections[] = {
-			"FenceLock"
+		   "Fence",
+		   "Ground"
 		};
         hiddenSelections[]=
         {
-			"FenceLock"
+		   "Fence",
+		   "Ground"
         };
 	};
 };

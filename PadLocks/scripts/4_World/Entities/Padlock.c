@@ -136,11 +136,13 @@ class Padlock extends ItemBase {
 	}
 	
 	protected void ShowAttached() {
-		ShowSimpleSelection("FenceLock");
+		ShowSimpleSelection("Fence");
+		ShowSimpleSelection("Ground", false);
 	}
 	
 	protected void HideAttached() {
-		ShowSimpleSelection("FenceLock", false);
+		ShowSimpleSelection("Fence", false);
+		ShowSimpleSelection("Ground");
 	}	
 	// ---	
 	
