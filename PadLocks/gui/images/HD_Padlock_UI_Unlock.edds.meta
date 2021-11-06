@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{576F5512FB49974A}PadLocks/gui/images/HD_Padlock_UI_Unlock.png"
+ Author "desktop-cjp9n6b"
+ ChangeDate 745270117
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "HD_Padlock_UI_Unlock.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

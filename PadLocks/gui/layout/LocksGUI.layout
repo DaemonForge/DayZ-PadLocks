@@ -7,16 +7,17 @@ ImageWidgetClass rootFrame {
  vexactpos 1
  hexactsize 1
  vexactsize 1
- image0 "PadLocks/gui/images/Padlock_UI.edds"
+ image0 "PadLocks/gui/images/HD_Padlock_UI_UnLock.edds"
  mode blend
  "src alpha" 1
  "no wrap" 0
  stretch 1
  {
   PanelWidgetClass Center {
+   visible 1
    clipchildren 0
    ignorepointer 1
-   color 0 0 0 0.4902
+   color 0.8 0.7333 0.7333 0
    position 0 0
    size 364 72
    halign center_ref
@@ -28,9 +29,9 @@ ImageWidgetClass rootFrame {
    style rover_sim_colorable
    {
     EditBoxWidgetClass Diget0 {
-     color 0.8314 0.8314 0.8314 1
+     color 0 0 0 1
      position 14 0
-     size 44 64
+     size 34 60
      valign center_ref
      hexactpos 1
      vexactpos 1
@@ -38,12 +39,15 @@ ImageWidgetClass rootFrame {
      vexactsize 1
      style Default
      text "0"
+     "Default text color" 0 0 0 1
      "exact text" 0
+     font "gui/fonts/metronbook-bold"
+     "text color" 0 0 0 1
     }
     EditBoxWidgetClass Diget1 {
-     color 0.8314 0.8314 0.8314 1
-     position -56 0
-     size 46 64
+     color 0 0 0 1
+     position -62 0
+     size 34 60
      halign center_ref
      valign center_ref
      hexactpos 1
@@ -51,11 +55,14 @@ ImageWidgetClass rootFrame {
      hexactsize 1
      vexactsize 1
      text "0"
+     "Default text color" 0 0 0 1
+     font "gui/fonts/metronbook-bold"
+     "text color" 0 0 0 1
     }
     EditBoxWidgetClass Diget2 {
-     color 0.8314 0.8314 0.8314 1
-     position 67 0
-     size 42 64
+     color 0 0 0 1
+     position 66 0
+     size 34 60
      halign center_ref
      valign center_ref
      hexactpos 1
@@ -63,31 +70,28 @@ ImageWidgetClass rootFrame {
      hexactsize 1
      vexactsize 1
      text "0"
+     "Default text color" 0 0 0 1
+     font "gui/fonts/metronbook-bold"
+     "text color" 0 0 0 1
     }
     EditBoxWidgetClass Diget3 {
-     color 0.8314 0.8314 0.8314 1
-     position 2 0
-     size 46 64
+     color 0 0 0 1
+     position 8 0
+     size 34 60
      halign right_ref
      valign center_ref
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
+     style Default
      text "0"
-    }
-    PanelWidgetClass Top1 {
-     ignorepointer 1
-     position 0 0
-     size 1 1
-     halign center_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 1
-     style rover_sim_colorable
+     "Default text color" 0 0 0 1
+     font "gui/fonts/metronbook-bold"
+     "text color" 0 0 0 1
     }
     PanelWidgetClass Botton4 {
+     visible 0
      ignorepointer 1
      size 1 1
      halign center_ref
@@ -99,6 +103,7 @@ ImageWidgetClass rootFrame {
      style rover_sim_colorable
     }
     PanelWidgetClass Right4 {
+     visible 0
      ignorepointer 1
      size 1 1
      halign right_ref
@@ -110,6 +115,7 @@ ImageWidgetClass rootFrame {
      style rover_sim_colorable
     }
     PanelWidgetClass Left4 {
+     visible 0
      ignorepointer 1
      size 1 1
      valign center_ref
@@ -122,8 +128,9 @@ ImageWidgetClass rootFrame {
     ButtonWidgetClass DialUp0 {
      clipchildren 1
      ignorepointer 0
-     position 9 -30
-     size 48 26
+     color 0.6863 0.5804 0.2588 0.0588
+     position 13 -53
+     size 40 22
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -140,7 +147,7 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/up.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Up.edds"
        mode blend
        "src alpha" 1
        stretch 1
@@ -149,8 +156,9 @@ ImageWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown0 {
      ignorepointer 0
-     position 9 -30
-     size 48 26
+     color 0.6863 0.5804 0.2588 0.0588
+     position 14 -49
+     size 40 22
      valign bottom_ref
      hexactpos 1
      vexactpos 1
@@ -168,7 +176,7 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/down.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Down.edds"
        mode blend
        "src alpha" 1
        stretch 1
@@ -177,8 +185,9 @@ ImageWidgetClass rootFrame {
     }
     ButtonWidgetClass DialUp1 {
      ignorepointer 0
-     position -60 -30
-     size 48 26
+     color 0.6863 0.5804 0.2588 0.0588
+     position -62 -53
+     size 40 22
      halign center_ref
      hexactpos 1
      vexactpos 1
@@ -196,7 +205,7 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/up.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Up.edds"
        mode blend
        "src alpha" 1
        stretch 1
@@ -205,8 +214,9 @@ ImageWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown1 {
      ignorepointer 0
-     position -60 -30
-     size 48 26
+     color 0.6863 0.5804 0.2588 0.0588
+     position -61 -49
+     size 40 22
      halign center_ref
      valign bottom_ref
      hexactpos 1
@@ -225,7 +235,7 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/down.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Down.edds"
        mode blend
        "src alpha" 1
        stretch 1
@@ -234,8 +244,9 @@ ImageWidgetClass rootFrame {
     }
     ButtonWidgetClass DialUp2 {
      ignorepointer 0
-     position 64 -30
-     size 48 26
+     color 0.6863 0.5804 0.2588 0.0588
+     position 62 -53
+     size 40 22
      halign center_ref
      hexactpos 1
      vexactpos 1
@@ -253,7 +264,7 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/up.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Up.edds"
        mode blend
        "src alpha" 1
        stretch 1
@@ -262,8 +273,9 @@ ImageWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown2 {
      ignorepointer 0
-     position 64 -30
-     size 48 26
+     color 0.6863 0.5804 0.2588 0.0588
+     position 63 -49
+     size 40 22
      halign center_ref
      valign bottom_ref
      hexactpos 1
@@ -282,7 +294,7 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/down.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Down.edds"
        mode blend
        "src alpha" 1
        stretch 1
@@ -291,8 +303,9 @@ ImageWidgetClass rootFrame {
     }
     ButtonWidgetClass DialDown3 {
      ignorepointer 0
-     position 8 -30
-     size 48 26
+     color 0.8745 0.8196 0.6549 0.098
+     position 13 -49
+     size 40 22
      halign right_ref
      valign bottom_ref
      hexactpos 1
@@ -311,7 +324,7 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/down.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Down.edds"
        mode blend
        "src alpha" 1
        stretch 1
@@ -320,8 +333,9 @@ ImageWidgetClass rootFrame {
     }
     ButtonWidgetClass DialUp3 {
      ignorepointer 0
-     position 8 -29
-     size 48 26
+     color 0.6863 0.5804 0.2588 0.0588
+     position 14 -53
+     size 40 22
      halign right_ref
      hexactpos 1
      vexactpos 1
@@ -339,21 +353,33 @@ ImageWidgetClass rootFrame {
        vexactpos 0
        hexactsize 0
        vexactsize 0
-       image0 "PadLocks/gui/images/up.edds"
+       image0 "PadLocks/gui/images/Dial_Arrow_Up.edds"
        mode blend
        "src alpha" 1
        stretch 1
       }
      }
     }
+    PanelWidgetClass Top1 {
+     visible 0
+     ignorepointer 1
+     position 0 0
+     size 1 1
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 1
+     style rover_sim_colorable
+    }
    }
   }
   ButtonWidgetClass Unlock {
    clipchildren 0
    ignorepointer 0
-   color 0.098 0.098 0.098 0.3961
-   position 60 0
-   size 52 56
+   color 0.6863 0.5804 0.2588 0.0588
+   position 68 0
+   size 46 58
    halign right_ref
    valign center_ref
    hexactpos 1
@@ -362,6 +388,7 @@ ImageWidgetClass rootFrame {
    vexactsize 1
    {
     ImageWidgetClass Unlock_Label {
+     visible 0
      ignorepointer 1
      color 0.7882 0.7882 0.7882 1
      position 0 0
@@ -379,7 +406,8 @@ ImageWidgetClass rootFrame {
     TextWidgetClass Unlock_Hover {
      visible 0
      ignorepointer 1
-     position -30 -24
+     color 0.6353 0.6353 0.6353 1
+     position -42.0692 -2.70139
      size 96 28
      halign right_ref
      valign bottom_ref
@@ -393,59 +421,11 @@ ImageWidgetClass rootFrame {
     }
    }
   }
-  PanelWidgetClass Top {
-   visible 0
-   ignorepointer 1
-   position 0 0
-   size 1 2
-   halign center_ref
-   hexactpos 0
-   vexactpos 0
-   hexactsize 0
-   vexactsize 1
-   style rover_sim_colorable
-  }
-  PanelWidgetClass Botton {
-   visible 0
-   ignorepointer 1
-   size 1 2
-   halign center_ref
-   valign bottom_ref
-   hexactpos 0
-   vexactpos 0
-   hexactsize 0
-   vexactsize 1
-   style rover_sim_colorable
-  }
-  PanelWidgetClass Right {
-   visible 0
-   ignorepointer 1
-   size 2 1
-   halign right_ref
-   valign center_ref
-   hexactpos 0
-   vexactpos 0
-   hexactsize 1
-   vexactsize 0
-   style rover_sim_colorable
-  }
-  PanelWidgetClass Left {
-   visible 0
-   ignorepointer 1
-   position 0 0
-   size 2 1
-   valign center_ref
-   hexactpos 0
-   vexactpos 0
-   hexactsize 1
-   vexactsize 0
-   style rover_sim_colorable
-  }
   ButtonWidgetClass Reset {
    clipchildren 0
-   color 0.1569 0.1569 0.1569 0.5686
-   position 56 0
-   size 68.5 57
+   color 0.6863 0.5804 0.2588 0.0588
+   position 50 0
+   size 69 61
    valign center_ref
    hexactpos 1
    vexactpos 1
@@ -453,7 +433,7 @@ ImageWidgetClass rootFrame {
    vexactsize 1
    {
     ImageWidgetClass Reset_Label {
-     visible 1
+     visible 0
      ignorepointer 1
      color 0.7882 0.7882 0.7882 1
      position 0 0

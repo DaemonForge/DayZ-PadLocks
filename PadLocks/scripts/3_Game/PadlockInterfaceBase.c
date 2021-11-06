@@ -3,10 +3,11 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	protected autoptr TIntArray 		m_Combination = {0,0,0,0};
 	protected autoptr TStringArray		m_LastValues = {"0","0","0","0"};
 	protected static string 			m_LayoutPath = "Padlocks/gui/layout/LocksGUI.layout";
-	protected static string 			UNLOCKIMAGE = "Padlocks/gui/images/unlock.edds";
-	protected static string 			SETIMAGE = "Padlocks/gui/images/set.edds";
+	protected static string 			UNLOCKIMAGE = "PadLocks/gui/images/HD_Padlock_UI_UnLock.edds";
+	protected static string 			SETIMAGE = "PadLocks/gui/images/HD_Padlock_UI_Lock.edds";
 		
 	
+	protected ImageWidget 				m_RootImage;
 	protected ButtonWidget 				m_Unlock;
 	protected ButtonWidget 				m_Reset;
 	protected TextWidget 				m_Unlock_Hover;
@@ -32,7 +33,7 @@ class PadlockInterfaceBase extends UIScriptedMenu
     {
 		
 		layoutRoot 				= Widget.Cast(GetGame().GetWorkspace().CreateWidgets(m_LayoutPath));
-		
+		m_RootImage				= ImageWidget.Cast(layoutRoot);
 		
 		m_Unlock 				= ButtonWidget.Cast(layoutRoot.FindAnyWidget("Unlock"));
 		m_UnlockLabel			= ImageWidget.Cast(layoutRoot.FindAnyWidget("Unlock_Label"));
@@ -142,7 +143,7 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	
 	protected void RefreshButtons(string image = UNLOCKIMAGE){
 		ResetBlanks();
-		m_UnlockLabel.LoadImageFile(0,image);
+		m_RootImage.LoadImageFile(0,image);
 	}
 	
 	protected string GetUnlockText(){

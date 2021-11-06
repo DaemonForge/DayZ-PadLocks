@@ -41,6 +41,8 @@ class PadlockInterface extends PadlockInterfaceBase
 		m_Padlock = Padlock.Cast(lock);
 		m_Padlock.SetInterface(this);
 		RefreshVisuals();
+		
+		SetFocus(m_Diget0);
 	}
 	
 	

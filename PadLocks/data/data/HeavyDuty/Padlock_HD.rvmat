@@ -8,7 +8,7 @@ PixelShaderID="Super";
 VertexShaderID="Super";
 class Stage1
 {
-	texture="ATLAS_Assets\Household\Security\Locks\Padlock_HD\data\HD_Padlock_nohq.paa";
+	texture="PadLocks\data\data\HeavyDuty\HD_Padlock_nohq.paa";
 	uvSource="tex";
 	class uvTransform
 	{
@@ -44,7 +44,7 @@ class Stage3
 };
 class Stage4
 {
-	texture="ATLAS_Assets\Household\Security\Locks\Padlock_HD\data\HD_Padlock_as.paa";
+	texture="PadLocks\data\data\HeavyDuty\HD_Padlock_as.paa";
 	uvSource="tex";
 	class uvTransform
 	{
@@ -56,7 +56,7 @@ class Stage4
 };
 class Stage5
 {
-	texture="ATLAS_Assets\Household\Security\Locks\Padlock_HD\data\HD_Padlock_smdi.paa";
+	texture="PadLocks\data\data\HeavyDuty\HD_Padlock_smdi.paa";
 	uvSource="tex";
 	class uvTransform
 	{

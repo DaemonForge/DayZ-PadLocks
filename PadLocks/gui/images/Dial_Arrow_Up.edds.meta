@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{C26382649B67C41A}PadLocks/gui/images/Dial_Arrow_Up.edds"
+ Author "desktop-cjp9n6b"
+ ChangeDate 846981989
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "Dial_Arrow_Up.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

@@ -33,7 +33,7 @@ class Padlock extends ItemBase {
 	
 	void SetCombination(int pin){
 		m_Combination = pin;
-		if (m_Combination >= 0){
+		if (pin >= 0){
 			m_HasCombination = true;
 			LockServer(GetHierarchyRoot());
 		} else {
@@ -95,8 +95,10 @@ class Padlock extends ItemBase {
 		if (GetGame().IsServer()){
 			SetSynchDirty();
 			EntityAI parent = GetHierarchyParent();
-			if ( parent && parent.IsInherited( BaseBuildingBase ) && m_HasCombination) {
+			if ( parent && m_HasCombination) {
 				LockServer( parent );
+			} else {
+				UnlockServer(parent);
 			}
 		}
 	}
@@ -173,37 +175,44 @@ class Padlock extends ItemBase {
 	
 	
 	void LockServer( EntityAI parent) {
-		if ( IsLockAttached() ) {			
+		if ( IsLockAttached() ) {
+			Print("LockServer");
+			Print(parent);
+			Print(this);
 			InventoryLocation inventory_location = new InventoryLocation;
-			GetInventory().GetCurrentInventoryLocation( inventory_location );		
-			parent.GetInventory().SetSlotLock( inventory_location.GetSlot(), true );
-			
+			GetInventory().GetCurrentInventoryLocation( inventory_location );	
+			Print("LockServer" + inventory_location.GetSlot());	
+			bool check = parent.GetInventory().SetSlotLock( inventory_location.GetSlot(), true );
+			Print(check);		
+			Print("LockServer End");
 			m_LockActionPerformed = LockAction.LOCKED;
 			SetTakeable(false);
-			Synchronize();
 		}
 		
 	}
 	
 	void UnlockServer( EntityAI parent ){
 		if ( IsLockAttached() ) {
+			Print("UnlockServer Start");
+			Print(parent);
+			Print(this);
 			ItemBase item = ItemBase.Cast( parent );
 			
 			InventoryLocation inventory_location = new InventoryLocation;
-			GetInventory().GetCurrentInventoryLocation( inventory_location );			
-			item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );			
-	
+			GetInventory().GetCurrentInventoryLocation( inventory_location );		
+			Print("UnlockServer" + inventory_location.GetSlot());	
+			bool check = item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );
+			Print(check);		
+			Print("UnlockServer End");
 			SetCombination(-1);
 			ClearRemeberedPlayers();
 			m_LockActionPerformed = LockAction.UNLOCKED;
 			SetTakeable(true);
-			//synchronize
-			Synchronize();
 		}
 	
 	}
 	
-	void UnlockAndDropServer( EntityAI player, EntityAI parent ) {
+	void UnlockAndDropServer(EntityAI parent ) {
 		if ( IsLockAttached() ) {
 			ItemBase item = ItemBase.Cast( parent );
 			
@@ -211,17 +220,13 @@ class Padlock extends ItemBase {
 			GetInventory().GetCurrentInventoryLocation( inventory_location );			
 			item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );			
 			
-			if (player) {
-				player.ServerDropEntity( this );
-			} else {
-				parent.GetInventory().DropEntity(InventoryMode.SERVER, parent, this);
-			}
-			PlaceOnSurface();
+			parent.GetInventory().DropEntity(InventoryMode.SERVER, parent, this);
+			
+			PlaceOnSurface();	
 			SetCombination(-1);
+			ClearRemeberedPlayers();
 			m_LockActionPerformed = LockAction.UNLOCKED;
 			SetTakeable(true);
-			//synchronize
-			Synchronize();
 		}
 	}
 	
