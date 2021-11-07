@@ -60,6 +60,17 @@ class CfgVehicles
 		   "Fence",
 		   "Ground"
         };
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 750;
+					healthLevels[] = {{1.0,{}},{0.7,{}},{0.5,{}},{0.3,{}},{0.0,{}}};
+				};
+			};
+		};
 	};
 	class Padlock_Heavy: Padlock
 	{
@@ -68,8 +79,8 @@ class CfgVehicles
 		descriptionShort = "A Heavy Duty PadLock for locking your shit up";
 		model = "PadLocks\data\HD_Padlock.p3d";
 		inventorySlot[] = {"Att_CombinationLock"};
-		itemSize[] = {1,2};
-		weight = 350;
+		itemSize[] = {2,3};
+		weight = 500;
 		simpleHiddenSelections[] = {
 		   "Fence",
 		   "Ground"
@@ -79,5 +90,48 @@ class CfgVehicles
 		   "Fence",
 		   "Ground"
         };
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 2000;
+					healthLevels[] = {{1.0,{}},{0.7,{}},{0.5,{}},{0.3,{}},{0.0,{}}};
+				};
+			};
+		};
+	};
+	class BoltCutter: Inventory_Base
+	{
+		scope = 2;
+		displayName = "BoltCutter";
+		descriptionShort = "A Bolt Cutter could be used to cut PadLocks";
+		model = "PadLocks\data\BoltCutters\BoltCutters.p3d";
+		itemBehaviour = 2;
+		rotationFlags = 4;
+		lootCategory = "Tools";
+		inventorySlot[] = {"Shoulder","Melee"};
+		itemSize[] = {2,5};
+		weight = 1100;
+		simpleHiddenSelections[] = {
+		   "Cutter"
+		};
+        hiddenSelections[]=
+        {
+		   "Cutter"
+        };
+		
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 500;
+					healthLevels[] = {{1.0,{}},{0.7,{}},{0.5,{}},{0.3,{}},{0.0,{}}};
+				};
+			};
+		};
 	};
 };

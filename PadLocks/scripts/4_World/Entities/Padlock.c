@@ -13,13 +13,26 @@ class Padlock extends ItemBase {
 	protected LockAction m_LockActionPerformed 		= LockAction.NONE;
 	protected EffectSound m_Sound;
 	
+	protected float m_SyncedHealth = -1;
+	
 	const string SOUND_LOCK_OPEN 			= "combinationlock_open_SoundSet";
 	const string SOUND_LOCK_CLOSE 			= "combinationlock_close_SoundSet";
 	
 	void Padlock() {
 		RegisterNetSyncVariableInt( "m_LockActionPerformed", 0, LockAction.COUNT );
 		RegisterNetSyncVariableBool("m_HasCombination");
+		RegisterNetSyncVariableFloat("m_SyncedHealth");
 		HideAttached();
+	}
+	
+	override void EEKilled( Object killer )
+	{
+		super.EEKilled( killer );
+		Print("PADLOCK EEKILLED");
+		EntityAI parent = GetHierarchyParent();
+		if ( parent ) {
+			UnlockAndDropServer( parent );
+		}
 	}
 	
 	
@@ -85,8 +98,6 @@ class Padlock extends ItemBase {
 		
 		//Check combination lock	
 		
-		//synchronize
-		Synchronize();
 		if (m_Combination >= 0){
 			m_HasCombination = true;
 		} else {
@@ -95,16 +106,38 @@ class Padlock extends ItemBase {
 		if (GetGame().IsServer()){
 			SetSynchDirty();
 			EntityAI parent = GetHierarchyParent();
-			if ( parent && m_HasCombination) {
-				LockServer( parent );
+			if ( parent && m_HasCombination && m_Combination >= 0) {
+				//LockServer( parent );
 			} else {
 				UnlockServer(parent);
 			}
 		}
+		m_SyncedHealth = GetHealth("","");
+		//synchronize
+		Synchronize();
 	}
 	
 	bool HasCombination(){
 		return m_HasCombination;
+	}
+	
+	void SyncHealth(){
+		if ( GetGame().IsServer() ) {
+			m_SyncedHealth = GetHealth("","");
+			m_LockActionPerformed = LockAction.NONE;
+			Synchronize();
+		}
+	}
+	
+	float GetSyncedHealth(){
+		if (m_SyncedHealth == -1){
+			return GetMaxHealth("","");
+		}
+		return m_SyncedHealth;
+	}
+	
+	bool CanBeRaidedWith(ItemBase item){
+		return item.IsInherited(BoltCutter);
 	}
 	
 	// --- SYNCHRONIZATION
@@ -178,49 +211,42 @@ class Padlock extends ItemBase {
 	
 	void LockServer( EntityAI parent) {
 		if ( IsLockAttached() ) {
-			Print("LockServer");
-			Print(parent);
-			Print(this);
 			InventoryLocation inventory_location = new InventoryLocation;
 			GetInventory().GetCurrentInventoryLocation( inventory_location );	
-			Print("LockServer" + inventory_location.GetSlot());	
 			bool check = parent.GetInventory().SetSlotLock( inventory_location.GetSlot(), true );
-			Print(check);		
-			Print("LockServer End");
+			Print("LockServer " + this.Type() + " on " + parent.GetType() + " Slot: " + inventory_location.GetSlot() + " " + check);
 			m_LockActionPerformed = LockAction.LOCKED;
 			SetTakeable(false);
+			Synchronize();
 		}
 		
 	}
 	
 	void UnlockServer( EntityAI parent ){
 		if ( IsLockAttached() ) {
-			Print("UnlockServer Start");
-			Print(parent);
-			Print(this);
 			ItemBase item = ItemBase.Cast( parent );
 			
 			InventoryLocation inventory_location = new InventoryLocation;
-			GetInventory().GetCurrentInventoryLocation( inventory_location );		
-			Print("UnlockServer" + inventory_location.GetSlot());	
-			bool check = item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );
-			Print(check);		
-			Print("UnlockServer End");
+			GetInventory().GetCurrentInventoryLocation( inventory_location );	
+			bool check = item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );	
+			Print("UnlockServer " + this.Type() + " on " + parent.GetType() + " Slot: " + inventory_location.GetSlot() + " " + check);
 			SetCombination(-1);
 			ClearRemeberedPlayers();
 			m_LockActionPerformed = LockAction.UNLOCKED;
 			SetTakeable(true);
+			Synchronize();
 		}
 	
 	}
 	
 	void UnlockAndDropServer(EntityAI parent ) {
+		Print("PADLOCK UnlockAndDropServer");
 		if ( IsLockAttached() ) {
 			ItemBase item = ItemBase.Cast( parent );
 			
 			InventoryLocation inventory_location = new InventoryLocation;
 			GetInventory().GetCurrentInventoryLocation( inventory_location );			
-			item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );			
+			item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );		
 			
 			parent.GetInventory().DropEntity(InventoryMode.SERVER, parent, this);
 			
@@ -229,6 +255,7 @@ class Padlock extends ItemBase {
 			ClearRemeberedPlayers();
 			m_LockActionPerformed = LockAction.UNLOCKED;
 			SetTakeable(true);
+			Synchronize();
 		}
 	}
 	
