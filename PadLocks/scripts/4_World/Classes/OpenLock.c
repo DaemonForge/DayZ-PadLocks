@@ -43,7 +43,7 @@ class ActionOpenLockInterface : ActionContinuousBase {
 	}
 	
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item ) {
-		Fence fence;
+		ItemBase fence;
 		if ( (Class.CastTo(fence, target.GetObject()) || Class.CastTo(fence, target.GetParent())) ){
 			if ( fence.GetPadlock() && fence.IsPadlocked() && !fence.IsOpen()) {
 				return true;
@@ -54,7 +54,7 @@ class ActionOpenLockInterface : ActionContinuousBase {
 	}
 	
 	override void OnFinishProgressServer( ActionData action_data ) {
-		Fence fence;
+		ItemBase fence;
 		PlayerBase player = PlayerBase.Cast(action_data.m_Player);
 		if ((Class.CastTo(fence, action_data.m_Target.GetObject()) || Class.CastTo(fence, action_data.m_Target.GetParent())) && fence.GetPadlock() && player && player.GetIdentity()){
 			fence.GetPadlock().RPCSingleParam(PADLOCK_OPENREQUEST, new Param1<bool>(true), true, player.GetIdentity());

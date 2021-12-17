@@ -135,3 +135,16 @@ class CfgVehicles
 		};
 	};
 };
+
+class CfgNonAIVehicles
+{
+    class ProxyAttachment;
+
+    class ProxyPadlock : ProxyAttachment
+    {
+        scope = 1;
+        InventorySlot="Att_CombinationLock";
+        model="\PadLocks\data\Padlock.p3d";
+    };
+	
+};

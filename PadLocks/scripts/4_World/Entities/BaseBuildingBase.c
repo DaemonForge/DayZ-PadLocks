@@ -1,10 +1,3 @@
-modded class Fence extends ItemBase
-{
-	override bool IsOpen(){
-		return IsOpened();
-	}
-}
-
 modded class ItemBase  extends InventoryItem {
 
 	Padlock GetPadlock() {
@@ -31,6 +24,9 @@ modded class ItemBase  extends InventoryItem {
 
 modded class Fence extends BaseBuildingBase {
 
+	override bool IsOpen(){
+		return IsOpened();
+	}
 	
 	override bool IsLocked() {		
 		return super.IsLocked() || IsPadlocked();

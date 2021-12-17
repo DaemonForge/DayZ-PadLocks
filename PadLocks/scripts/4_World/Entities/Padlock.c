@@ -357,20 +357,25 @@ class Padlock extends ItemBase {
 		}
 	}
 	
+	protected void HandleOpenItem(EntityAI entity, PlayerIdentity player){
+		Fence fenceSet = Fence.Cast( entity );
+		if ( fenceSet ) {
+				fenceSet.OpenFence();
+		} else {
+			ItemBase itemSet = ItemBase.Cast(GetHierarchyParent());
+			if (itemSet){
+				itemSet.Open();
+			}
+		}
+	}
+	
 	protected void HandleUnlockRequest(int pin, PlayerIdentity sender){
 		if (!HasCombination()){
 			SetCombination(pin);
 			AddRemeberedPlayer(sender);
 			RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(PadLockRespones.SUCCESS), true, sender);
 			Fence fenceSet = Fence.Cast( GetHierarchyParent() );
-			if ( fenceSet ) {
-				fenceSet.OpenFence();
-			} else {
-				ItemBase itemSet = ItemBase.Cast(GetHierarchyParent());
-				if (itemSet){
-					itemSet.Open();
-				}
-			}
+			HandleOpenItem(GetHierarchyParent(), sender);
 		} else if (m_Combination == pin){
 			AddRemeberedPlayer(sender);
 			RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(PadLockRespones.SUCCESS), true, sender);
