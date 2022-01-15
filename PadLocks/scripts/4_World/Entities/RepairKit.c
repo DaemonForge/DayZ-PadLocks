@@ -1,0 +1,1 @@
+class PadLockRepairKit: Inventory_Base {};

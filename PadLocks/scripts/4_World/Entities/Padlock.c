@@ -15,6 +15,9 @@ class Padlock extends ItemBase {
 	
 	protected float m_SyncedHealth = -1;
 	
+	protected autoptr map<string, int> m_FailedAttemptsCount;
+	protected autoptr map<string, int> m_FailedAttemptsNextTime;
+	
 	const string SOUND_LOCK_OPEN 			= "combinationlock_open_SoundSet";
 	const string SOUND_LOCK_CLOSE 			= "combinationlock_close_SoundSet";
 	
@@ -296,7 +299,7 @@ class Padlock extends ItemBase {
 		}
 		if (rpc_type == PADLOCK_RESETREQUEST && GetGame().IsServer() && sender) {
 			//Rate Limiter server side and hard coded
-			if (curtime < m_LastAtemptTime){
+			if (curtime < m_LastAtemptTime || !IsAllowedToRetry(sender.GetId())){
 				GetGame().AdminLog("[PadLock] Player " + sender.GetName() + "(" + sender.GetPlainId() + ")" + " rate limited " + GetPosition());
 				RPCSingleParam(PADLOCK_RESETREQUEST, new Param1<int>(PadLockRespones.RATELIMITED), true, sender);
 				if (m_LastAtemptTime < newtime){ //if trying to often the block will just keep increasing by ~2 seconds
@@ -304,7 +307,8 @@ class Padlock extends ItemBase {
 				}
 				return;
 			}
-			m_LastAtemptTime = curtime + 6000; //Attempts can only be once every 6 seconds
+			m_LastAtemptTime = curtime + 4000; //Attempts can only be once every 4 seconds
+			AddAttempt(sender.GetId());
 			if (ctx.Read(resetReq)) {
 				pin = resetReq.param1;
 				if (m_Combination == pin){
@@ -341,7 +345,7 @@ class Padlock extends ItemBase {
 		}
 		if (rpc_type == PADLOCK_UNLOCKREQUEST && GetGame().IsServer() && sender) {
 			//Rate Limiter server side and hard coded
-			if (curtime < m_LastAtemptTime){
+			if (curtime < m_LastAtemptTime || !IsAllowedToRetry(sender.GetId())){
 				GetGame().AdminLog("[PadLock] Player " + sender.GetName() + "(" + sender.GetPlainId() + ")" + " rate limited " + GetPosition());
 				RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(PadLockRespones.RATELIMITED), true, sender);
 				if (m_LastAtemptTime < newtime){ //if trying to often the block will just keep increasing by ~2 seconds
@@ -349,7 +353,8 @@ class Padlock extends ItemBase {
 				}
 				return;
 			}
-			m_LastAtemptTime = curtime + 6000; //Attempts can only be once every 6 seconds
+			AddAttempt(sender.GetId());
+			m_LastAtemptTime = curtime + 4000; //Attempts can only be once every 4 seconds
 			if (ctx.Read(UnlockReq)) {
 				pin = UnlockReq.param1;
 				HandleUnlockRequest(pin, sender);
@@ -427,6 +432,29 @@ class Padlock extends ItemBase {
 	{
 		super.SetActions();
 		
+	}
+	
+	
+	bool IsAllowedToRetry(string guid){
+		if (!m_FailedAttemptsNextTime){return true;}
+		int curTime = GetGame().GetTime();
+		int nextTime = 0;
+		if (!m_FailedAttemptsNextTime.Find(guid,nextTime)){return true;}
+		return (nextTime < curTime);
+		
+	}
+	
+	void AddAttempt(string guid){
+		if (!m_FailedAttemptsNextTime){m_FailedAttemptsNextTime = new map<string,int>;}
+		if (!m_FailedAttemptsCount){m_FailedAttemptsCount = new map<string,int>;}
+		int curTime = GetGame().GetTime();
+		int currentCount = 0;
+		int nextAttempt = curTime + 3000;
+		if (m_FailedAttemptsCount.Find(guid,currentCount)){
+			nextAttempt = nextAttempt + (currentCount * 3000);
+		}
+		currentCount++;
+		m_FailedAttemptsCount.Set(guid,currentCount);
 	}
 	
 }

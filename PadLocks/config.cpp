@@ -50,7 +50,9 @@ class CfgVehicles
 		model = "PadLocks\data\Padlock.p3d";
 		inventorySlot[] = {"Att_CombinationLock"};
 		itemSize[] = {1,2};
-		weight = 350;
+		weight = 650;
+		repairableWithKits[] = {86};
+		repairCosts[] = {50.0};
 		simpleHiddenSelections[] = {
 		   "Fence",
 		   "Ground"
@@ -80,7 +82,9 @@ class CfgVehicles
 		model = "PadLocks\data\HD_Padlock.p3d";
 		inventorySlot[] = {"Att_CombinationLock"};
 		itemSize[] = {2,3};
-		weight = 500;
+		weight = 1200;
+		repairableWithKits[] = {86};
+		repairCosts[] = {100.0};
 		simpleHiddenSelections[] = {
 		   "Fence",
 		   "Ground"
@@ -113,7 +117,7 @@ class CfgVehicles
 		lootCategory = "Tools";
 		inventorySlot[] = {"Shoulder","Melee"};
 		itemSize[] = {2,5};
-		weight = 1100;
+		weight = 2600;
 		simpleHiddenSelections[] = {
 		   "Cutter"
 		};
@@ -130,6 +134,55 @@ class CfgVehicles
 				{
 					hitpoints = 500;
 					healthLevels[] = {{1.0,{}},{0.7,{}},{0.5,{}},{0.3,{}},{0.0,{}}};
+				};
+			};
+		};
+	};
+	class PadLockRepairKit: Inventory_Base
+	{
+		scope = 2;
+		displayName = "Lock Smith Repair Kit";
+		descriptionShort = "A kit that can repair Padlocks";
+		model = "PadLocks\data\RepairKit\RepairKit.p3d";
+		animClass = "Knife";
+		rotationFlags = 17;
+		stackedUnit = "percentage";
+		quantityBar = 1;
+		varQuantityInit = 100.0;
+		varQuantityMin = 0.0;
+		varQuantityMax = 100.0;
+		weight = 1200;
+		itemSize[] = {2,3};
+		repairKitType = 86;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 50;
+					healthLevels[] = {{1.0,{}},{0.7,{}},{0.5,{}},{0.3,{}},{0.0,{}}};
+				};
+			};
+		};
+		class AnimEvents
+		{
+			class SoundWeapon
+			{
+				class Stitch
+				{
+					soundSet = "StitchUpSelf_SoundSet";
+					id = 201;
+				};
+				class pickup
+				{
+					soundSet = "sewingkit_pickup_SoundSet";
+					id = 797;
+				};
+				class drop
+				{
+					soundset = "sewingkit_drop_SoundSet";
+					id = 898;
 				};
 			};
 		};
