@@ -269,8 +269,10 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		return super.OnChange( w, x, y, finished );
 	}
 	
+	static const string ALLOWED_CHARACTERS = "0123456789";
+	
 	protected bool ValidInput(string input) {
-		if (input.Contains("0") || input.Contains("1") || input.Contains("2") || input.Contains("3") || input.Contains("4") || input.Contains("5") || input.Contains("6") || input.Contains("7") || input.Contains("8") || input.Contains("9")){
+		if (ALLOWED_CHARACTERS.Contains(input)){
 			return true;
 		}
 		return false;

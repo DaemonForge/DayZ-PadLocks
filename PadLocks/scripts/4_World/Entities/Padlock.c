@@ -441,7 +441,6 @@ class Padlock extends ItemBase {
 		int nextTime = 0;
 		if (!m_FailedAttemptsNextTime.Find(guid,nextTime)){return true;}
 		return (nextTime < curTime);
-		
 	}
 	
 	void AddAttempt(string guid){
@@ -451,10 +450,13 @@ class Padlock extends ItemBase {
 		int currentCount = 0;
 		int nextAttempt = curTime + 3000;
 		if (m_FailedAttemptsCount.Find(guid,currentCount)){
-			nextAttempt = nextAttempt + (currentCount * 3000);
+			nextAttempt = nextAttempt + (currentCount * Math.Max(1,(currentCount - 2)) * 3000);
 		}
 		currentCount++;
 		m_FailedAttemptsCount.Set(guid,currentCount);
+		if (currentCount > 3){
+			GetGame().AdminLog("[PadLocks] Player: " + guid + " failed 3+ atempts on " + GetType() + " at " + GetPosition());
+		}
 	}
 	
 }

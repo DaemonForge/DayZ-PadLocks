@@ -48,7 +48,21 @@ class CfgVehicles
 		displayName = "PadLock";
 		descriptionShort = "A simple PadLock for locking your shit up";
 		model = "PadLocks\data\Padlock.p3d";
-		inventorySlot[] = {"Att_CombinationLock"};
+		inventorySlot[] = {
+				"Att_CombinationLock",
+				"Att_Padlock1",
+				"Att_Padlock2",
+				"Att_Padlock3",
+				"Att_Padlock4",
+				"Att_Padlock5",
+				"Att_Padlock6",
+				"Att_Padlock7",
+				"Att_Padlock8",
+				"Att_Padlock9",
+				"Att_Padlock10",
+				"Att_Padlock11",
+				"Att_Padlock12"
+			};
 		itemSize[] = {1,2};
 		weight = 650;
 		repairableWithKits[] = {86};
@@ -80,7 +94,6 @@ class CfgVehicles
 		displayName = "Heavy PadLock";
 		descriptionShort = "A Heavy Duty PadLock for locking your shit up";
 		model = "PadLocks\data\HD_Padlock.p3d";
-		inventorySlot[] = {"Att_CombinationLock"};
 		itemSize[] = {2,3};
 		weight = 1200;
 		repairableWithKits[] = {86};
