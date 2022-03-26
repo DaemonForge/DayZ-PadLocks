@@ -1,5 +1,5 @@
-const float BOLTCUTTER_DAMAGE_PER_SECOND = 2;
-const float PADLOCK_DAMAGE_PER_SECOND = 8;
+const float BOLTCUTTER_DAMAGE_PER_SECOND = 2.5;
+const float PADLOCK_DAMAGE_PER_SECOND = 4.5;
 
 
 class ActionCutPadlockCB : ActionContinuousBaseCB
@@ -53,6 +53,6 @@ class ActionCutPadlock: ActionContinuousBase
 
 	override void OnFinishProgressServer( ActionData action_data )
 	{
-		
+		super.OnFinishProgressServer(action_data);
 	}
 };

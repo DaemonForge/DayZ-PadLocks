@@ -88,16 +88,24 @@ class CAContinuousCutPadlock : CAContinuousBase
 		return m_TotalLockDamageDone/m_TotalLockHealth;
 	}
 	
+	float m_incrementalDamageDone = 0;
 	
 	void HandleDamage( ActionData action_data )
 	{
 		m_TotalLockDamageDone += m_LockDamageDone;
+		m_incrementalDamageDone += m_LockDamageDone;
 		if ( GetGame().IsServer() )
 		{
 			m_Padlock.DecreaseHealth("","", m_LockDamageDone);
 			action_data.m_MainItem.DecreaseHealth("","",m_ToolDamageDone);
 			m_Padlock.SyncHealth();
 			Print("PADLOCK HEALTH: " + m_Padlock.GetHealth("",""));
+			#ifdef HEROESANDBANDITSMOD_V2
+			if (m_incrementalDamageDone > 75){
+				m_incrementalDamageDone = 0;
+				action_data.m_Player.NewHABAction("damagepadlock", m_Padlock);
+			}
+			#endif
 		}
 		m_LockDamageDone = 0;
 		m_ToolDamageDone = 0;
