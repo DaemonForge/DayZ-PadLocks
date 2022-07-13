@@ -19,6 +19,7 @@ class CfgMods
         {
 			value = "";
             files[]={
+				"PadLocks/scripts/Common",
 				"PadLocks/scripts/3_Game"
 			};
         };
@@ -26,6 +27,7 @@ class CfgMods
         {
             value="";
             files[]={ 
+				"PadLocks/scripts/Common",
 				"PadLocks/scripts/4_World" 
 			};
         };
@@ -33,6 +35,7 @@ class CfgMods
         {
             value="";
             files[]={
+				"PadLocks/scripts/Common",
 				"PadLocks/scripts/5_Mission" 
 			};
         };
