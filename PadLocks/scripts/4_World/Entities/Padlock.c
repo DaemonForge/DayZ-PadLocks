@@ -187,7 +187,6 @@ class Padlock extends ItemBase {
 		if ( m_LockActionPerformed == LockAction.LOCKED ) {
 			SoundLockClose();
 		}
-		
 		//was unlocked
 		if ( m_LockActionPerformed == LockAction.UNLOCKED ) {
 			SoundLockOpen();
@@ -199,7 +198,6 @@ class Padlock extends ItemBase {
 		if ( item && item.GetInventory().HasAttachment(this) ) {
 			return true;
 		}
-		
 		return false;
 	}
 	
@@ -232,7 +230,6 @@ class Padlock extends ItemBase {
 			InventoryLocation inventory_location = new InventoryLocation;
 			GetInventory().GetCurrentInventoryLocation( inventory_location );	
 			bool check = item.GetInventory().SetSlotLock( inventory_location.GetSlot(), false );	
-			Print("UnlockServer " + this.Type() + " on " + parent.GetType() + " Slot: " + inventory_location.GetSlot() + " " + check);
 			SetCombination(-1);
 			ClearRemeberedPlayers();
 			m_LockActionPerformed = LockAction.UNLOCKED;
@@ -243,7 +240,6 @@ class Padlock extends ItemBase {
 	}
 	
 	void UnlockAndDropServer(EntityAI parent ) {
-		Print("PADLOCK UnlockAndDropServer");
 		if ( IsLockAttached() ) {
 			ItemBase item = ItemBase.Cast( parent );
 			
@@ -300,7 +296,7 @@ class Padlock extends ItemBase {
 		if (rpc_type == PADLOCK_RESETREQUEST && GetGame().IsServer() && sender) {
 			//Rate Limiter server side and hard coded
 			if (curtime < m_LastAtemptTime || !IsAllowedToRetry(sender.GetId())){
-				GetGame().AdminLog("[PadLock] Player " + sender.GetName() + "(" + sender.GetPlainId() + ")" + " rate limited " + GetPosition());
+				DoInteractLog(sender, "rate limited");
 				RPCSingleParam(PADLOCK_RESETREQUEST, new Param1<int>(PadLockRespones.RATELIMITED), true, sender);
 				if (m_LastAtemptTime < newtime){ //if trying to often the block will just keep increasing by ~2 seconds
 					m_LastAtemptTime = newtime;
@@ -312,6 +308,7 @@ class Padlock extends ItemBase {
 			if (ctx.Read(resetReq)) {
 				pin = resetReq.param1;
 				if (m_Combination == pin){
+					DoInteractLog(sender, "cleared pin");
 					UnlockServer(GetHierarchyParent());
 					RPCSingleParam(PADLOCK_RESETREQUEST, new Param1<int>(PadLockRespones.SUCCESS), true, sender);
 				} else {
@@ -346,7 +343,7 @@ class Padlock extends ItemBase {
 		if (rpc_type == PADLOCK_UNLOCKREQUEST && GetGame().IsServer() && sender) {
 			//Rate Limiter server side and hard coded
 			if (curtime < m_LastAtemptTime || !IsAllowedToRetry(sender.GetId())){
-				GetGame().AdminLog("[PadLock] Player " + sender.GetName() + "(" + sender.GetPlainId() + ")" + " rate limited " + GetPosition());
+				DoInteractLog(sender, "rate limited");
 				RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(PadLockRespones.RATELIMITED), true, sender);
 				if (m_LastAtemptTime < newtime){ //if trying to often the block will just keep increasing by ~2 seconds
 					m_LastAtemptTime = newtime;
@@ -364,14 +361,18 @@ class Padlock extends ItemBase {
 	
 	protected void HandleOpenItem(EntityAI entity, PlayerIdentity player){
 		Fence fenceSet = Fence.Cast( entity );
+		string itemname = "ERROR";
 		if ( fenceSet ) {
+				itemname = fenceSet.GetType();
 				fenceSet.OpenFence();
 		} else {
-			ItemBase itemSet = ItemBase.Cast(GetHierarchyParent());
+			ItemBase itemSet = ItemBase.Cast(entity);
 			if (itemSet){
+				itemname = itemSet.GetType();
 				itemSet.Open();
 			}
 		}
+		DoInteractLog(player, "opened");
 	}
 	
 	protected void HandleUnlockRequest(int pin, PlayerIdentity sender){
@@ -379,24 +380,31 @@ class Padlock extends ItemBase {
 			SetCombination(pin);
 			AddRemeberedPlayer(sender);
 			RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(PadLockRespones.SUCCESS), true, sender);
-			Fence fenceSet = Fence.Cast( GetHierarchyParent() );
+			ItemBase itemSet = ItemBase.Cast(GetHierarchyParent());
+			DoInteractLog(sender, "set pin");
 			HandleOpenItem(GetHierarchyParent(), sender);
 		} else if (m_Combination == pin){
 			AddRemeberedPlayer(sender);
 			RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(PadLockRespones.SUCCESS), true, sender);
-			Fence fence = Fence.Cast( GetHierarchyParent() );
-			if ( fence ) {
-				fence.OpenFence();
-			} else {
-				ItemBase itemOpn = ItemBase.Cast(GetHierarchyParent());
-				if (itemOpn){
-					itemOpn.Open();
-				}
-			}
+			HandleOpenItem(GetHierarchyParent(), sender);
 		} else {
-			GetGame().AdminLog("[PadLock] Player " + sender.GetName() + "(" + sender.GetPlainId() + ")" + " tried the wrong pin " + GetPosition());
+			DoInteractLog(sender, "wrong pin");
 			RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(PadLockRespones.INVALIDPIN), true, sender);
 		}
+	}
+	
+	void DoInteractLog(PlayerIdentity sender, string action){
+		string target = GetType();
+		ItemBase parent = ItemBase.Cast(GetHierarchyParent());
+		if (parent)
+			target = parent.GetType();
+		
+		GetGame().AdminLog("[PadLock] Player " + sender.GetName() + "(" + sender.GetId() + ") " + action + " on " + target + " at " + GetPosition());
+		#ifdef GAMELABS
+        _LogPlayerEx logObjectPlayer = new _LogPlayerEx(PlayerBase.Cast(UUtil.FindPlayerByIdentity(sender)));
+        _Payload_ItemInteract payload = new _Payload_ItemInteract(logObjectPlayer, GetType(), target, action);
+        GetGameLabs().GetApi().ItemInteract(new _Callback(), payload);
+		#endif
 	}
 	
 	
@@ -455,7 +463,8 @@ class Padlock extends ItemBase {
 		currentCount++;
 		m_FailedAttemptsCount.Set(guid,currentCount);
 		if (currentCount > 3){
-			GetGame().AdminLog("[PadLocks] Player: " + guid + " failed 3+ atempts on " + GetType() + " at " + GetPosition());
+			GetGame().AdminLog("[PadLock] Player (" + guid + ") " + "Failed 3+ Attempts" + " on " + GetType() + " at " + GetPosition());
+			//DoInteractLog(sender, "failed 3+ attempts");
 		}
 	}
 	

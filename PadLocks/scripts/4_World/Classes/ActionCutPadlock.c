@@ -45,7 +45,7 @@ class ActionCutPadlock: ActionContinuousBase
 		Padlock padlock;
 		if ( Class.CastTo(targetItem, target.GetObject()) || Class.CastTo(targetItem, target.GetParent())) {
 			  if (Class.CastTo(padlock, targetItem.GetPadlock()) ){
-					return padlock.CanBeRaidedWith(item);
+					return padlock.CanBeRaidedWith(item) && PadlockConfig.CanRaid(targetItem.GetType());
 			  }
 		}
 		return false;

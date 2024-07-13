@@ -8,6 +8,7 @@ class CAContinuousCutPadlock : CAContinuousBase
 	protected float 		m_ToolDamageDone;
 	protected float 		m_TotalLockDamageDone;
 	protected float 		m_TotalToolDamageDone;
+	protected float 		m_incrementalDamageDone = 0;
 	protected float 		m_TotalLockHealth;
 	protected Padlock		m_Padlock;
 	
@@ -88,7 +89,6 @@ class CAContinuousCutPadlock : CAContinuousBase
 		return m_TotalLockDamageDone/m_TotalLockHealth;
 	}
 	
-	float m_incrementalDamageDone = 0;
 	
 	void HandleDamage( ActionData action_data )
 	{
@@ -99,13 +99,13 @@ class CAContinuousCutPadlock : CAContinuousBase
 			m_Padlock.DecreaseHealth("","", m_LockDamageDone);
 			action_data.m_MainItem.DecreaseHealth("","",m_ToolDamageDone);
 			m_Padlock.SyncHealth();
-			Print("PADLOCK HEALTH: " + m_Padlock.GetHealth("",""));
-			#ifdef HEROESANDBANDITSMOD_V2
 			if (m_incrementalDamageDone > 75){
 				m_incrementalDamageDone = 0;
+			#ifdef HEROESANDBANDITSMOD_V2
 				action_data.m_Player.NewHABAction("damagepadlock", m_Padlock);
-			}
 			#endif
+				m_Padlock.DoInteractLog(action_data.m_Player.GetIdentity(),"damaged padlock");
+			}
 		}
 		m_LockDamageDone = 0;
 		m_ToolDamageDone = 0;
