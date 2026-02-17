@@ -33,8 +33,8 @@ class PadlockInterface extends PadlockInterfaceBase
 	override protected string GetUnlockText(){
 		if (m_Padlock && m_Padlock.HasCombination()){
 			return "#unlock";
-		}
-		return "Set Pin";
+		} 
+		return "#STR_PADLOCKS_SET_PIN";
 	}
 	
 	override void SetPadLock(EntityAI lock){
@@ -50,11 +50,11 @@ class PadlockInterface extends PadlockInterfaceBase
 	}
 	
 	void OnInvalidPin(){
-		NotificationSystem.CreateNotification(new StringLocaliser("PadLocks"), new StringLocaliser("Invalid Pin"), PADLOCK_WARNINGIMAGE, ARGB(255,255,255,255), 10);
+		NotificationSystem.CreateNotification(new StringLocaliser("#STR_PADLOCKS_MOD_NAME"), new StringLocaliser("#STR_PADLOCKS_INVALID_PIN"), PADLOCK_WARNINGIMAGE, ARGB(255,255,255,255), 10);
 	}
 	
 	void OnRateLimit(){
-		NotificationSystem.CreateNotification(new StringLocaliser("PadLocks"), new StringLocaliser("Attempts Too Quick"), PADLOCK_WARNINGIMAGE, ARGB(255,255,255,255), 10);
+		NotificationSystem.CreateNotification(new StringLocaliser("#STR_PADLOCKS_MOD_NAME"), new StringLocaliser("#STR_PADLOCKS_RATE_LIMITED"), PADLOCK_WARNINGIMAGE, ARGB(255,255,255,255), 10);
 	}
 	
 	void RefreshVisuals(){

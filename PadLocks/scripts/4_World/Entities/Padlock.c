@@ -76,7 +76,7 @@ class Padlock extends ItemBase {
 			m_Combination = -1;
 			return false;
 		}
-		
+		 
 		if ( !ctx.Read( m_RemeberedPlayers ) ) {
 			m_RemeberedPlayers = new TStringArray;
 			return false;
@@ -257,7 +257,7 @@ class Padlock extends ItemBase {
 			Synchronize();
 		}
 	}
-	
+	 
 	
 	override void OnWasDetached( EntityAI parent, int slot_id )
 	{
@@ -398,7 +398,7 @@ class Padlock extends ItemBase {
 		ItemBase parent = ItemBase.Cast(GetHierarchyParent());
 		if (parent)
 			target = parent.GetType();
-		
+
 		GetGame().AdminLog("[PadLock] Player " + sender.GetName() + "(" + sender.GetId() + ") " + action + " on " + target + " at " + GetPosition());
 		#ifdef GAMELABS
         _LogPlayerEx logObjectPlayer = new _LogPlayerEx(PlayerBase.Cast(UUtil.FindPlayerByIdentity(sender)));

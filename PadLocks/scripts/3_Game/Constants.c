@@ -8,7 +8,7 @@ static const string PADLOCK_WARNINGIMAGE = "Padlocks/gui/images/warning.edds";
 enum PadLockRespones
 {
 	SUCCESS,
-	INVALIDPIN,
+	INVALIDPIN, 
 	RATELIMITED,
 	NEEDPIN
 }

@@ -9,9 +9,9 @@ modded class ItemBase  extends InventoryItem {
 		if (lock){
 			return lock.CanUnlock(player);
 		}
-		return true;
+		return true; 
 	}
-	
+	 
 	bool IsPadlocked() {
 		Padlock lock = GetPadlock();
 		if ( lock && lock.IsLocked() )

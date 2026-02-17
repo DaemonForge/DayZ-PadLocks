@@ -36,9 +36,9 @@ class ActionCutPadlock: ActionContinuousBase
 
 	override string GetText()
 	{
-		return "Cut Padlock";
+		return "#STR_PADLOCKS_CUT_PADLOCK";
 	}
-
+ 
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item )
 	{
 		ItemBase targetItem;
@@ -48,6 +48,7 @@ class ActionCutPadlock: ActionContinuousBase
 					return padlock.CanBeRaidedWith(item) && PadlockConfig.CanRaid(targetItem.GetType());
 			  }
 		}
+		
 		return false;
 	}
 

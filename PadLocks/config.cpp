@@ -11,15 +11,18 @@ class CfgMods
   class PadLocks
   {
     name="PadLocks";
-    type="mod"
+    type="mod";
 	dependencies[]={ "Game", "World", "Mission" };
 	class defs
 	{
+		class stringtableMods
+		{
+			files[]={"PadLocks/Stringtable"};
+		};
 		class gameScriptModule
         {
 			value = "";
             files[]={
-				"PadLocks/scripts/Common",
 				"PadLocks/scripts/3_Game"
 			};
         };
@@ -27,7 +30,6 @@ class CfgMods
         {
             value="";
             files[]={ 
-				"PadLocks/scripts/Common",
 				"PadLocks/scripts/4_World" 
 			};
         };
@@ -35,7 +37,6 @@ class CfgMods
         {
             value="";
             files[]={
-				"PadLocks/scripts/Common",
 				"PadLocks/scripts/5_Mission" 
 			};
         };
@@ -48,8 +49,8 @@ class CfgVehicles
 	class Padlock: Inventory_Base
 	{
 		scope = 2;
-		displayName = "PadLock";
-		descriptionShort = "A simple PadLock for locking your shit up";
+		displayName = "$STR_PADLOCKS_PADLOCK_NAME";
+		descriptionShort = "$STR_PADLOCKS_PADLOCK_DESC";
 		model = "PadLocks\data\Padlock.p3d";
 		inventorySlot[] = {
 				"Att_CombinationLock",
@@ -94,8 +95,8 @@ class CfgVehicles
 	class Padlock_Heavy: Padlock
 	{
 		scope = 2;
-		displayName = "Heavy PadLock";
-		descriptionShort = "A Heavy Duty PadLock for locking your shit up";
+		displayName = "$STR_PADLOCKS_HEAVY_NAME";
+		descriptionShort = "$STR_PADLOCKS_HEAVY_DESC";
 		model = "PadLocks\data\HD_Padlock.p3d";
 		itemSize[] = {2,3};
 		weight = 1200;
@@ -125,8 +126,8 @@ class CfgVehicles
 	class BoltCutter: Inventory_Base
 	{
 		scope = 2;
-		displayName = "BoltCutter";
-		descriptionShort = "A Bolt Cutter could be used to cut PadLocks";
+		displayName = "$STR_PADLOCKS_BOLTCUTTER_NAME";
+		descriptionShort = "$STR_PADLOCKS_BOLTCUTTER_DESC";
 		model = "PadLocks\data\BoltCutters\BoltCutters.p3d";
 		itemBehaviour = 2;
 		rotationFlags = 4;
@@ -157,8 +158,8 @@ class CfgVehicles
 	class PadLockRepairKit: Inventory_Base
 	{
 		scope = 2;
-		displayName = "Lock Smith Repair Kit";
-		descriptionShort = "A kit that can repair Padlocks";
+		displayName = "$STR_PADLOCKS_REPAIRKIT_NAME";
+		descriptionShort = "$STR_PADLOCKS_REPAIRKIT_DESC";
 		model = "PadLocks\data\RepairKit\RepairKit.p3d";
 		animClass = "Knife";
 		rotationFlags = 17;

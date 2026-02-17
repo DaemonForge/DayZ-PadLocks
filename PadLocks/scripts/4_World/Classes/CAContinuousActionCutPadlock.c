@@ -11,7 +11,7 @@ class CAContinuousCutPadlock : CAContinuousBase
 	protected float 		m_incrementalDamageDone = 0;
 	protected float 		m_TotalLockHealth;
 	protected Padlock		m_Padlock;
-	
+	 
 	void CAContinuousCutPadlock( float lock_dmg_per_sec, float tool_dmg_per_sec )
 	{
 		m_LockDamagePerSecond = lock_dmg_per_sec;

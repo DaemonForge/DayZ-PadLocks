@@ -41,4 +41,4 @@ static PadlockConfig GetPadlockConfig()
         }
     }
     return PadlockConfig.m_Config;
-};
+};  

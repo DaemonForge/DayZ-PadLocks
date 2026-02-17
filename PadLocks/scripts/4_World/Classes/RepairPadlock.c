@@ -57,7 +57,7 @@ class RepairPadlock extends RecipeBase
 		//AddResult("");//add results here
 
 		m_ResultSetFullQuantity[0] = false;//true = set full quantity, false = do nothing
-		m_ResultSetQuantity[0] = -1;//-1 = do nothing
+		m_ResultSetQuantity[0] = -1;//-1 = do nothing 
 		m_ResultSetHealth[0] = -1;//-1 = do nothing
 		m_ResultInheritsHealth[0] = -1;// (value) == -1 means do nothing; a (value) >= 0 means this result will inherit health from ingredient number (value);(value) == -2 means this result will inherit health from all ingredients averaged(result_health = combined_health_of_ingredients / number_of_ingredients)
 		m_ResultInheritsColor[0] = -1;// (value) == -1 means do nothing; a (value) >= 0 means this result classname will be a composite of the name provided in AddResult method and config value "color" of ingredient (value)
@@ -79,9 +79,9 @@ class RepairPadlock extends RecipeBase
 		return module_repairing.CanRepair(ingredient1,ingredient2);
 	}
 
-	override void Do(ItemBase ingredients[], PlayerBase player,array<ItemBase> results, float specialty_weight)//gets called upon recipe's completion
+	override void Do(ItemBase ingredients[], PlayerBase player, array<ItemBase> results, float specialty_weight)//gets called upon recipe's completion
 	{
-		PluginRepairing module_repairing;
+		PluginRepairing module_repairing; 
 		Class.CastTo(module_repairing, GetPlugin(PluginRepairing));
 		PlayerBase playerPB;
 		Class.CastTo(playerPB, player);
@@ -90,5 +90,6 @@ class RepairPadlock extends RecipeBase
 		ItemBase ingredient2;
 		Class.CastTo(ingredient2, ingredients[1]);
 		module_repairing.Repair(playerPB, ingredient1,ingredient2,m_Specialty);
-	}
+	} 
+	 
 };

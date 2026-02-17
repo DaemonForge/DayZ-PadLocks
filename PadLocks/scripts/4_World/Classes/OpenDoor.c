@@ -1,7 +1,7 @@
 class ActionLockOpenFence: ActionOpenFence
 {
 	override string GetText() {
-		return "Unlock Padlocked Door";
+		return "#STR_PADLOCKS_UNLOCK_DOOR";
 	}
 
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item )
@@ -14,6 +14,7 @@ class ActionLockOpenFence: ActionOpenFence
 	}
 		
 	override void OnStartServer( ActionData action_data ) {
+		
 		Fence fence;
 		PlayerBase player = PlayerBase.Cast(action_data.m_Player);
 		if ((Class.CastTo(fence, action_data.m_Target.GetObject()) || Class.CastTo(fence, action_data.m_Target.GetParent()))  && fence.IsPadlocked() && player && player.GetIdentity()){
@@ -42,7 +43,7 @@ class ActionSetPadlockPin extends ActionInteractBase {
 	}
 	
 	override string GetText() {
-		return "Set Padlock Pin";
+		return "#STR_PADLOCKS_SET_PADLOCK_PIN";
 	}
 	
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item )
@@ -53,6 +54,7 @@ class ActionSetPadlockPin extends ActionInteractBase {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 		
@@ -63,5 +65,5 @@ class ActionSetPadlockPin extends ActionInteractBase {
 			fence.GetPadlock().RPCSingleParam(PADLOCK_OPENREQUEST, new Param1<bool>(true), true, player.GetIdentity());
 		}
 	}
-
+ 
 }

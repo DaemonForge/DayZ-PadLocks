@@ -24,7 +24,7 @@ class ActionOpenLockInterface : ActionContinuousBase {
 	
 	override string GetText()
 	{
-		return "Manage Lock";
+		return "#STR_PADLOCKS_MANAGE_LOCK";
 	}
 	
 	override typename GetInputType()
@@ -49,12 +49,12 @@ class ActionOpenLockInterface : ActionContinuousBase {
 				return true;
 			}
 		}
-		
+		 
 		return false;
 	}
 	
 	override void OnFinishProgressServer( ActionData action_data ) {
-		ItemBase fence;
+		ItemBase fence; 
 		PlayerBase player = PlayerBase.Cast(action_data.m_Player);
 		if ((Class.CastTo(fence, action_data.m_Target.GetObject()) || Class.CastTo(fence, action_data.m_Target.GetParent())) && fence.GetPadlock() && player && player.GetIdentity()){
 			fence.GetPadlock().RPCSingleParam(PADLOCK_OPENREQUEST, new Param1<bool>(true), true, player.GetIdentity());

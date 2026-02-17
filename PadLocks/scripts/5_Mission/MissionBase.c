@@ -6,7 +6,7 @@ modded class MissionBase extends MissionBaseWorld
         if (!menu) {
             switch (id) {
                 case PADLOCK_INTERFACE:
-					Print("PADLOCK_INTERFACE Create");
+					Print("PADLOCK_INTERFACE Create"); 
                     menu = new PadlockInterface;
                     break;
             }

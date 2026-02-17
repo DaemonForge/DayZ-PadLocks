@@ -6,9 +6,9 @@ modded class MissionServer extends MissionBase
 		Print("[Padlock] OnInit");
 		GetPadlockConfig();
 		GetRPCManager().AddRPC( "Padlock", "RPCPadlockConfig", this, SingeplayerExecutionType.Both );
-	}
+	} 
 	
-	void RPCPadlockConfig( CallType type, ref ParamsReadContext ctx, ref PlayerIdentity sender, ref Object target ) {
+	void RPCPadlockConfig( CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target ) {
 		PlayerIdentity RequestedBy = PlayerIdentity.Cast(sender);
 		if (RequestedBy){
 			GetRPCManager().SendRPC("Padlock", "RPCPadlockConfig", new Param1< PadlockConfig >( GetPadlockConfig() ), true, RequestedBy);
@@ -27,10 +27,10 @@ modded class MissionGameplay
 	}
 	
 	
-	void RPCPadlockConfig( CallType type, ref ParamsReadContext ctx, ref PlayerIdentity sender, ref Object target ) {
+	void RPCPadlockConfig( CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target ) {
 		Param1< PadlockConfig > data;
 		if ( !ctx.Read( data ) ) return;
 		Print("[Padlock][Client] Received Config From Server");
-		PadlockConfig.m_Config = data.param1;
+		Class.CastTo(PadlockConfig.m_Config, data.param1);
 	}
 };

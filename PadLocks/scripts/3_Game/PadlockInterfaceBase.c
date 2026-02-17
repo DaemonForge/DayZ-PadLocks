@@ -13,7 +13,7 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	protected TextWidget 				m_Unlock_Hover;
 	protected TextWidget 				m_Reset_Hover;
 	
-	protected ImageWidget 				m_UnlockLabel;
+	protected ImageWidget 				m_UnlockLabel; 
 	
 	protected EditBoxWidget 			m_Diget0;
 	protected EditBoxWidget 			m_Diget1;
@@ -59,7 +59,7 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		m_Diget3				= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget3"));	
 		
 		RALockControls();
-		
+		 
 		return layoutRoot;
 	}
 	
@@ -76,7 +76,7 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		ResetBlanks();
 		if (w == m_Diget0Up){
 			StepNumber(0, 1);
-			return true;
+			return true; 
 		}
 		if (w == m_Diget1Up){
 			StepNumber(1, 1);

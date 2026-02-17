@@ -9,8 +9,8 @@ class BoltCutter extends ItemBase {
 		AddAction(ActionCutPadlock);
 	}	
 
-}
-
+} 
+ 
 modded class ModItemRegisterCallbacks
 {
 

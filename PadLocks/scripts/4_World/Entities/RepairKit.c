@@ -1,1 +1,1 @@
-class PadLockRepairKit: Inventory_Base {};
+class PadLockRepairKit: Inventory_Base {}; 
