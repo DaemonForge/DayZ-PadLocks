@@ -1,10 +1,16 @@
 class PadlockInterfaceBase extends UIScriptedMenu
 {
-	protected autoptr TIntArray 		m_Combination = {0,0,0,0};
-	protected autoptr TStringArray		m_LastValues = {"0","0","0","0"};
-	protected static string 			m_LayoutPath = "Padlocks/gui/layout/LocksGUI.layout";
-	protected static string 			UNLOCKIMAGE = "PadLocks/gui/images/HD_Padlock_UI_UnLock.edds";
-	protected static string 			SETIMAGE = "PadLocks/gui/images/HD_Padlock_UI_Lock.edds";
+	protected autoptr TIntArray 		m_Combination = {0,0,0,0,0,0};
+	protected autoptr TStringArray		m_LastValues = {"0","0","0","0","0","0"};
+	protected static string 			m_LayoutPath4 = "Padlocks/gui/layout/LocksGUI.layout";
+	protected static string 			m_LayoutPath6 = "Padlocks/gui/layout/LocksGUI_6.layout";
+	protected static string 			UNLOCKIMAGE_4 = "PadLocks/gui/images/HD_Padlock_UI_UnLock.edds";
+	protected static string 			SETIMAGE_4 = "PadLocks/gui/images/HD_Padlock_UI_Lock.edds";
+	protected static string 			UNLOCKIMAGE_6 = "PadLocks/gui/images/Padlock_UI_Lock_6.edds";
+	protected static string 			SETIMAGE_6 = "PadLocks/gui/images/Padlock_UI_Unlock_6.edds";
+	protected string 					UNLOCKIMAGE;
+	protected string 					SETIMAGE;
+	protected bool						m_Is6Digit;
 		
 	
 	protected ImageWidget 				m_RootImage;
@@ -19,20 +25,37 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	protected EditBoxWidget 			m_Diget1;
 	protected EditBoxWidget 			m_Diget2;
 	protected EditBoxWidget 			m_Diget3;
+	protected EditBoxWidget 			m_Diget4;
+	protected EditBoxWidget 			m_Diget5;
 	
 	protected ButtonWidget 				m_Diget0Up;
 	protected ButtonWidget 				m_Diget1Up;
 	protected ButtonWidget 				m_Diget2Up;
 	protected ButtonWidget 				m_Diget3Up;
+	protected ButtonWidget 				m_Diget4Up;
+	protected ButtonWidget 				m_Diget5Up;
 	protected ButtonWidget 				m_Diget0Down;
 	protected ButtonWidget 				m_Diget1Down;
 	protected ButtonWidget 				m_Diget2Down;
 	protected ButtonWidget 				m_Diget3Down;
+	protected ButtonWidget 				m_Diget4Down;
+	protected ButtonWidget 				m_Diget5Down;
 	
 	override Widget Init()
     {
+		m_Is6Digit = PadlockConfig.Is6DigitEnabled();
+		string layoutPath;
+		if (m_Is6Digit){
+			layoutPath = m_LayoutPath6;
+			UNLOCKIMAGE = UNLOCKIMAGE_6;
+			SETIMAGE = SETIMAGE_6;
+		} else {
+			layoutPath = m_LayoutPath4;
+			UNLOCKIMAGE = UNLOCKIMAGE_4;
+			SETIMAGE = SETIMAGE_4;
+		}
 		
-		layoutRoot 				= Widget.Cast(GetGame().GetWorkspace().CreateWidgets(m_LayoutPath));
+		layoutRoot 				= Widget.Cast(GetGame().GetWorkspace().CreateWidgets(layoutPath));
 		m_RootImage				= ImageWidget.Cast(layoutRoot);
 		
 		m_Unlock 				= ButtonWidget.Cast(layoutRoot.FindAnyWidget("Unlock"));
@@ -56,7 +79,16 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		m_Diget0				= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget0"));	
 		m_Diget1				= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget1"));	
 		m_Diget2				= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget2"));	
-		m_Diget3				= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget3"));	
+		m_Diget3				= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget3"));
+		
+		if (m_Is6Digit){
+			m_Diget4Up 			= ButtonWidget.Cast(layoutRoot.FindAnyWidget("DialUp4"));
+			m_Diget5Up 			= ButtonWidget.Cast(layoutRoot.FindAnyWidget("DialUp5"));
+			m_Diget4Down 		= ButtonWidget.Cast(layoutRoot.FindAnyWidget("DialDown4"));
+			m_Diget5Down 		= ButtonWidget.Cast(layoutRoot.FindAnyWidget("DialDown5"));
+			m_Diget4			= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget4"));
+			m_Diget5			= EditBoxWidget.Cast(layoutRoot.FindAnyWidget("Diget5"));
+		}
 		
 		RALockControls();
 		 
@@ -90,6 +122,14 @@ class PadlockInterfaceBase extends UIScriptedMenu
 			StepNumber(3, 1);
 			return true;
 		}
+		if (m_Is6Digit && w == m_Diget4Up){
+			StepNumber(4, 1);
+			return true;
+		}
+		if (m_Is6Digit && w == m_Diget5Up){
+			StepNumber(5, 1);
+			return true;
+		}
 		if (w == m_Diget0Down){
 			StepNumber(0, -1);
 			return true;
@@ -106,6 +146,14 @@ class PadlockInterfaceBase extends UIScriptedMenu
 			StepNumber(3, -1);
 			return true;
 		}
+		if (m_Is6Digit && w == m_Diget4Down){
+			StepNumber(4, -1);
+			return true;
+		}
+		if (m_Is6Digit && w == m_Diget5Down){
+			StepNumber(5, -1);
+			return true;
+		}
 		if (w == m_Diget0){
 			m_Diget0.SetText("");
 			return true;
@@ -120,6 +168,14 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		}
 		if (w == m_Diget3){
 			m_Diget3.SetText("");
+			return true;
+		}
+		if (m_Is6Digit && w == m_Diget4){
+			m_Diget4.SetText("");
+			return true;
+		}
+		if (m_Is6Digit && w == m_Diget5){
+			m_Diget5.SetText("");
 			return true;
 		}
 		if (w == m_Unlock){
@@ -141,7 +197,10 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	
 	}
 	
-	protected void RefreshButtons(string image = UNLOCKIMAGE){
+	protected void RefreshButtons(string image = ""){
+		if (image == ""){
+			image = UNLOCKIMAGE;
+		}
 		ResetBlanks();
 		m_RootImage.LoadImageFile(0,image);
 	}
@@ -162,6 +221,14 @@ class PadlockInterfaceBase extends UIScriptedMenu
 		}
 		if (m_Diget3.GetText() == ""){
 			m_Diget3.SetText("0");
+		}
+		if (m_Is6Digit){
+			if (m_Diget4.GetText() == ""){
+				m_Diget4.SetText("0");
+			}
+			if (m_Diget5.GetText() == ""){
+				m_Diget5.SetText("0");
+			}
 		}
 	}
 	
@@ -185,6 +252,12 @@ class PadlockInterfaceBase extends UIScriptedMenu
 			break;
 			case 3:
 				m_Diget3.SetText(m_Combination[index].ToString());
+			break;
+			case 4:
+				if (m_Is6Digit) m_Diget4.SetText(m_Combination[index].ToString());
+			break;
+			case 5:
+				if (m_Is6Digit) m_Diget5.SetText(m_Combination[index].ToString());
 			break;
 		}
 		m_LastValues[index] = m_Combination[index].ToString();
@@ -216,7 +289,7 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	
 	override bool OnChange(Widget w, int x, int y, bool finished) {
 		
-		if (w == m_Diget0 || w == m_Diget1 || w == m_Diget2 || w == m_Diget3){
+		if (w == m_Diget0 || w == m_Diget1 || w == m_Diget2 || w == m_Diget3 || (m_Is6Digit && (w == m_Diget4 || w == m_Diget5))){
 		int idx = 0;
 			EditBoxWidget textB = EditBoxWidget.Cast(w);
 			string d0 = textB.GetText();
@@ -237,6 +310,12 @@ class PadlockInterfaceBase extends UIScriptedMenu
 					case m_Diget3:
 						idx = 3;
 					break;
+					case m_Diget4:
+						idx = 4;
+					break;
+					case m_Diget5:
+						idx = 5;
+					break;
 				}
 				if (first == m_LastValues[idx]){
 					d0 = last;
@@ -256,6 +335,12 @@ class PadlockInterfaceBase extends UIScriptedMenu
 						break;
 						case m_Diget2:
 							SetFocus(m_Diget3);
+						break;
+						case m_Diget3:
+							if (m_Is6Digit) SetFocus(m_Diget4);
+						break;
+						case m_Diget4:
+							if (m_Is6Digit) SetFocus(m_Diget5);
 						break;
 					}
 				} else {

@@ -10,20 +10,40 @@ class PadlockInterface extends PadlockInterfaceBase
 	}
 	
 	override protected void Unlock(){
-		int pin = m_Combination[0] * 1000;
-		pin = pin + (m_Combination[1] * 100);
-		pin = pin + (m_Combination[2] * 10);
-		pin = pin + m_Combination[3];
+		int pin;
+		if (m_Is6Digit){
+			pin = m_Combination[0] * 100000;
+			pin = pin + (m_Combination[1] * 10000);
+			pin = pin + (m_Combination[2] * 1000);
+			pin = pin + (m_Combination[3] * 100);
+			pin = pin + (m_Combination[4] * 10);
+			pin = pin + m_Combination[5];
+		} else {
+			pin = m_Combination[0] * 1000;
+			pin = pin + (m_Combination[1] * 100);
+			pin = pin + (m_Combination[2] * 10);
+			pin = pin + m_Combination[3];
+		}
 		if (m_Padlock ){
 			m_Padlock.RPCSingleParam(PADLOCK_UNLOCKREQUEST, new Param1<int>(pin), true);
 		}
 	}
 	
 	override protected void ResetPin(){
-		int pin = m_Combination[0] * 1000;
-		pin = pin + (m_Combination[1] * 100);
-		pin = pin + (m_Combination[2] * 10);
-		pin = pin + m_Combination[3];
+		int pin;
+		if (m_Is6Digit){
+			pin = m_Combination[0] * 100000;
+			pin = pin + (m_Combination[1] * 10000);
+			pin = pin + (m_Combination[2] * 1000);
+			pin = pin + (m_Combination[3] * 100);
+			pin = pin + (m_Combination[4] * 10);
+			pin = pin + m_Combination[5];
+		} else {
+			pin = m_Combination[0] * 1000;
+			pin = pin + (m_Combination[1] * 100);
+			pin = pin + (m_Combination[2] * 10);
+			pin = pin + m_Combination[3];
+		}
 		if (m_Padlock ){
 			m_Padlock.RPCSingleParam(PADLOCK_RESETREQUEST, new Param1<int>(pin), true);
 		}
@@ -50,11 +70,11 @@ class PadlockInterface extends PadlockInterfaceBase
 	}
 	
 	void OnInvalidPin(){
-		NotificationSystem.CreateNotification(new StringLocaliser("#STR_PADLOCKS_MOD_NAME"), new StringLocaliser("#STR_PADLOCKS_INVALID_PIN"), PADLOCK_WARNINGIMAGE, ARGB(255,255,255,255), 10);
+		NotificationSystem.AddNotificationExtended(NotificationSystem.DEFAULT_TIME_DISPLAYED, "#STR_PADLOCKS_MOD_NAME", "#STR_PADLOCKS_INVALID_PIN", PADLOCK_WARNINGIMAGE);
 	}
 	
 	void OnRateLimit(){
-		NotificationSystem.CreateNotification(new StringLocaliser("#STR_PADLOCKS_MOD_NAME"), new StringLocaliser("#STR_PADLOCKS_RATE_LIMITED"), PADLOCK_WARNINGIMAGE, ARGB(255,255,255,255), 10);
+		NotificationSystem.AddNotificationExtended(NotificationSystem.DEFAULT_TIME_DISPLAYED, "#STR_PADLOCKS_MOD_NAME", "#STR_PADLOCKS_RATE_LIMITED", PADLOCK_WARNINGIMAGE);
 	}
 	
 	void RefreshVisuals(){

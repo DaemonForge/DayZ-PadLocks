@@ -1,4 +1,4 @@
-modded class ItemBase  extends InventoryItem {
+modded class ItemBase {
 
 	Padlock GetPadlock() {
 		return Padlock.Cast( GetAttachmentByType(Padlock) ); 

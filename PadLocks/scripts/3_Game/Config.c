@@ -4,6 +4,7 @@ class PadlockConfig extends Managed {
     protected static string ConfigPATH = ConfigDIR + "\\config.json";
     static ref PadlockConfig m_Config;
     string ConfigVersion = "0";
+	int Enable6NumberCodes = 0;
 	autoptr TStringArray RaidBlockList = {"SOMETHING"};
 	
     void Load(){
@@ -28,6 +29,13 @@ class PadlockConfig extends Managed {
 			if (type == toCompare) return false;
 		}
 		return true;
+	}
+	
+	static bool Is6DigitEnabled(){
+		if (m_Config && m_Config.Enable6NumberCodes == 1){
+			return true;
+		}
+		return false;
 	}
 }
 //Helper function to return Config

@@ -279,18 +279,24 @@ class Padlock extends ItemBase {
 		if (rpc_type == PADLOCK_RESETREQUEST && GetGame().IsClient()) {
 			if (ctx.Read(resetReq)) {
 				if (resetReq.param1 == PadLockRespones.SUCCESS){
-					GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_PadlockInterface.OnReset, 10);
-					m_LockActionPerformed == LockAction.UNLOCKED;
+					if (m_PadlockInterface){
+						GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(m_PadlockInterface.OnReset, 10);
+					}
+					m_LockActionPerformed = LockAction.UNLOCKED;
 				}
 				if (resetReq.param1 == PadLockRespones.INVALIDPIN){
-					m_PadlockInterface.OnInvalidPin();
-					m_LockActionPerformed == LockAction.LOCKED;
+					if (m_PadlockInterface){
+						m_PadlockInterface.OnInvalidPin();
+					}
+					m_LockActionPerformed = LockAction.LOCKED;
 				}
 				if (resetReq.param1 == PadLockRespones.RATELIMITED){
-					m_PadlockInterface.OnRateLimit();
-					m_LockActionPerformed == LockAction.LOCKED;
+					if (m_PadlockInterface){
+						m_PadlockInterface.OnRateLimit();
+					}
+					m_LockActionPerformed = LockAction.LOCKED;
 				}
-					SetSynchDirty();
+				SetSynchDirty();
 			}
 		}
 		if (rpc_type == PADLOCK_RESETREQUEST && GetGame().IsServer() && sender) {
@@ -403,7 +409,7 @@ class Padlock extends ItemBase {
 		#ifdef GAMELABS
         _LogPlayerEx logObjectPlayer = new _LogPlayerEx(PlayerBase.Cast(UUtil.FindPlayerByIdentity(sender)));
         _Payload_ItemInteract payload = new _Payload_ItemInteract(logObjectPlayer, GetType(), target, action);
-        GetGameLabs().GetApi().ItemInteract(new _Callback(), payload);
+        GetGameLabs().GetApi().ItemInteract(new _Callback(), payload); 
 		#endif
 	}
 	
@@ -462,6 +468,7 @@ class Padlock extends ItemBase {
 		}
 		currentCount++;
 		m_FailedAttemptsCount.Set(guid,currentCount);
+		m_FailedAttemptsNextTime.Set(guid, nextAttempt);
 		if (currentCount > 3){
 			GetGame().AdminLog("[PadLock] Player (" + guid + ") " + "Failed 3+ Attempts" + " on " + GetType() + " at " + GetPosition());
 			//DoInteractLog(sender, "failed 3+ attempts");

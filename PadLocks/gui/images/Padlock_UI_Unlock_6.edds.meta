@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{C8B8C7F03F601FF5}PadLocks/gui/images/Padlock_UI_Unlock_6.edds"
+ Author "laptop-a1dsa5nh"
+ ChangeDate 1261270097
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "Padlock_UI_Unlock_6.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}
