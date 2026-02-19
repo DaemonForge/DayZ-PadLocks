@@ -1,10 +1,10 @@
 MetaFileClass {
- Name "{B3B2D0DFFB244000}PadLocks/gui/images/PadLock_UI_Lock_6.png"
+ Name "{C8B8C7F03F601FF5}PadLocks/gui/images/Padlock_UI_Lock_6.edds"
  Author "laptop-a1dsa5nh"
- ChangeDate 626357329
+ ChangeDate 1261270097
  Configurations {
   PNGResourceClass PC {
-   SourceFile "PadLock_UI_Lock_6.png"
+   SourceFile "Padlock_UI_Lock_6.png"
   }
   PNGResourceClass XBOX_ONE : PC {
   }

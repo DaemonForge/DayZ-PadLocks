@@ -6,8 +6,8 @@ class PadlockInterfaceBase extends UIScriptedMenu
 	protected static string 			m_LayoutPath6 = "Padlocks/gui/layout/LocksGUI_6.layout";
 	protected static string 			UNLOCKIMAGE_4 = "PadLocks/gui/images/HD_Padlock_UI_UnLock.edds";
 	protected static string 			SETIMAGE_4 = "PadLocks/gui/images/HD_Padlock_UI_Lock.edds";
-	protected static string 			UNLOCKIMAGE_6 = "PadLocks/gui/images/Padlock_UI_Lock_6.edds";
-	protected static string 			SETIMAGE_6 = "PadLocks/gui/images/Padlock_UI_Unlock_6.edds";
+	protected static string 			UNLOCKIMAGE_6 = "PadLocks/gui/images/Padlock_UI_Unlock_6.edds";
+	protected static string 			SETIMAGE_6 = "PadLocks/gui/images/Padlock_UI_Lock_6.edds";
 	protected string 					UNLOCKIMAGE;
 	protected string 					SETIMAGE;
 	protected bool						m_Is6Digit;

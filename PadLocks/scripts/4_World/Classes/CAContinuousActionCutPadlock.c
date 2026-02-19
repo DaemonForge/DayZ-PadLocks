@@ -40,7 +40,7 @@ class CAContinuousCutPadlock : CAContinuousBase
 			return UA_ERROR;
 		}
 		
-		if ( action_data.m_MainItem.IsRuined() || m_Padlock.IsRuined())
+		if ( !m_Padlock || action_data.m_MainItem.IsRuined() || m_Padlock.IsRuined())
 		{
 			return UA_FINISHED;
 		}
@@ -86,12 +86,14 @@ class CAContinuousCutPadlock : CAContinuousBase
 	
 	override float GetProgress()
 	{	
+		if (!m_Padlock || m_TotalLockHealth <= 0) return 0;
 		return m_TotalLockDamageDone/m_TotalLockHealth;
 	}
 	
 	
 	void HandleDamage( ActionData action_data )
 	{
+		if (!m_Padlock) return;
 		m_TotalLockDamageDone += m_LockDamageDone;
 		m_incrementalDamageDone += m_LockDamageDone;
 		if ( GetGame().IsServer() )

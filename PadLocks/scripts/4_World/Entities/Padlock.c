@@ -300,6 +300,11 @@ class Padlock extends ItemBase {
 			}
 		}
 		if (rpc_type == PADLOCK_RESETREQUEST && GetGame().IsServer() && sender) {
+			//Distance check
+			PlayerBase resetPlayer = FindPlayerFromIdentity(sender);
+			if (!resetPlayer || vector.Distance(resetPlayer.GetPosition(), GetPosition()) > 5.0){
+				return;
+			}
 			//Rate Limiter server side and hard coded
 			if (curtime < m_LastAtemptTime || !IsAllowedToRetry(sender.GetId())){
 				DoInteractLog(sender, "rate limited");
@@ -347,6 +352,11 @@ class Padlock extends ItemBase {
 			}
 		}
 		if (rpc_type == PADLOCK_UNLOCKREQUEST && GetGame().IsServer() && sender) {
+			//Distance check
+			PlayerBase unlockPlayer = FindPlayerFromIdentity(sender);
+			if (!unlockPlayer || vector.Distance(unlockPlayer.GetPosition(), GetPosition()) > 5.0){
+				return;
+			}
 			//Rate Limiter server side and hard coded
 			if (curtime < m_LastAtemptTime || !IsAllowedToRetry(sender.GetId())){
 				DoInteractLog(sender, "rate limited");
@@ -455,6 +465,13 @@ class Padlock extends ItemBase {
 		int nextTime = 0;
 		if (!m_FailedAttemptsNextTime.Find(guid,nextTime)){return true;}
 		return (nextTime < curTime);
+	}
+	
+	protected PlayerBase FindPlayerFromIdentity(PlayerIdentity identity){
+		if (!identity) return null;
+		int low, high;
+		GetGame().GetPlayerNetworkIDByIdentityID(identity.GetPlayerId(), low, high);
+		return PlayerBase.Cast(GetGame().GetObjectByNetworkId(low, high));
 	}
 	
 	void AddAttempt(string guid){

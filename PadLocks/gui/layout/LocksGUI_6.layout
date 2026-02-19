@@ -7,7 +7,7 @@ ImageWidgetClass rootFrame {
  vexactpos 1
  hexactsize 1
  vexactsize 1
- image0 "PadLocks/gui/images/PadLock_UI_Lock_6.edds"
+ image0 "PadLocks/gui/images/PadLock_UI_Unlock_6.edds"
  mode blend
  "src alpha" 1
  "stretch mode" stretch_w_h
