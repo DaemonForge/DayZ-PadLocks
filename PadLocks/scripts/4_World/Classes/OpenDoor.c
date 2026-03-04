@@ -46,6 +46,8 @@ class ActionSetPadlockPin extends ActionInteractBase {
 		return "#STR_PADLOCKS_SET_PADLOCK_PIN";
 	}
 	
+
+
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item )
 	{
 		ItemBase fence;
@@ -57,7 +59,9 @@ class ActionSetPadlockPin extends ActionInteractBase {
 		
 		return false;
 	}
-		
+	
+
+
 	override void OnStartServer( ActionData action_data ) {
 		ItemBase fence;
 		PlayerBase player = PlayerBase.Cast(action_data.m_Player);

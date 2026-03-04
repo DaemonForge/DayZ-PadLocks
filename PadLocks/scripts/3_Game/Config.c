@@ -5,6 +5,7 @@ class PadlockConfig extends Managed {
     static ref PadlockConfig m_Config;
     string ConfigVersion = "0";
 	int Enable6NumberCodes = 0;
+	float RaidDamagePerSecond = 1.4;
 	autoptr TStringArray RaidBlockList = {"SOMETHING"};
 	
     void Load(){
@@ -36,6 +37,15 @@ class PadlockConfig extends Managed {
 			return true;
 		}
 		return false;
+	}
+	
+	static float GetRaidDamage()
+	{
+		if (m_Config)
+		{
+			return m_Config.RaidDamagePerSecond;
+		}
+		return 1.4;
 	}
 }
 //Helper function to return Config

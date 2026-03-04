@@ -86,7 +86,7 @@ class CfgVehicles
 			{
 				class Health
 				{
-					hitpoints = 750;
+					hitpoints = 863;
 					healthLevels[] = {{1.0,{}},{0.7,{}},{0.5,{}},{0.3,{}},{0.0,{}}};
 				};
 			};
@@ -117,7 +117,7 @@ class CfgVehicles
 			{
 				class Health
 				{
-					hitpoints = 2500;
+					hitpoints = 2875;
 					healthLevels[] = {{1.0,{}},{0.7,{}},{0.5,{}},{0.3,{}},{0.0,{}}};
 				};
 			};

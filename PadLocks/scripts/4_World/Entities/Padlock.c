@@ -28,6 +28,7 @@ class Padlock extends ItemBase {
 		HideAttached();
 	}
 	
+
 	override void EEKilled( Object killer )
 	{
 		super.EEKilled( killer );
@@ -37,8 +38,8 @@ class Padlock extends ItemBase {
 			UnlockAndDropServer( parent );
 		}
 	}
-	
-	
+
+
 	void SetInterface(PadlockInterface interface){
 		m_PadlockInterface = interface;
 	}

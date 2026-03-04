@@ -1,12 +1,10 @@
-const float BOLTCUTTER_DAMAGE_PER_SECOND = 2.5;
-const float PADLOCK_DAMAGE_PER_SECOND = 4.5;
-
+const float BOLTCUTTER_DAMAGE_PER_SECOND = 0.795;
 
 class ActionCutPadlockCB : ActionContinuousBaseCB
 {
 	override void CreateActionComponent()
 	{
-		m_ActionData.m_ActionComponent = new CAContinuousCutPadlock(PADLOCK_DAMAGE_PER_SECOND, BOLTCUTTER_DAMAGE_PER_SECOND);
+		m_ActionData.m_ActionComponent = new CAContinuousCutPadlock(PadlockConfig.GetRaidDamage(), BOLTCUTTER_DAMAGE_PER_SECOND);
 	}
 };
 
