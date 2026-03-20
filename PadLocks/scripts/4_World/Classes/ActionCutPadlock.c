@@ -1,4 +1,4 @@
-const float BOLTCUTTER_DAMAGE_PER_SECOND = 0.795;
+const float BOLTCUTTER_DAMAGE_PER_SECOND = 0.8;
 
 class ActionCutPadlockCB : ActionContinuousBaseCB
 {

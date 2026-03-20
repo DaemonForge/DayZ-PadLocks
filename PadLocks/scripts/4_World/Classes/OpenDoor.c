@@ -27,6 +27,53 @@ class ActionLockOpenFence: ActionOpenFence
 	}
 }
 
+// Generic padlock quick-open for non-Fence items (storages, containers, etc.)
+class ActionPadlockOpenStorage: ActionInteractBase
+{
+	void ActionPadlockOpenStorage()
+	{
+		m_StanceMask = DayZPlayerConstants.STANCEMASK_CROUCH | DayZPlayerConstants.STANCEMASK_ERECT;
+	}
+
+	override void CreateConditionComponents()
+	{
+		m_ConditionItem = new CCINone;
+		m_ConditionTarget = new CCTNone;
+	}
+
+	override string GetText()
+	{
+		return "#STR_PADLOCKS_UNLOCK_DOOR";
+	}
+
+	override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item)
+	{
+		ItemBase storage = ItemBase.Cast(target.GetObject());
+		if (storage && !storage.IsInherited(Fence) && storage.IsPadlocked() && !storage.IsOpen())
+		{
+			return true;
+		}
+		return false;
+	}
+
+	override void OnStartServer(ActionData action_data)
+	{
+		ItemBase storage = ItemBase.Cast(action_data.m_Target.GetObject());
+		PlayerBase player = PlayerBase.Cast(action_data.m_Player);
+		if (storage && storage.IsPadlocked() && player && player.GetIdentity())
+		{
+			if (storage.CanUnlockPadlock(player.GetIdentity()))
+			{
+				storage.Open();
+			}
+			else
+			{
+				storage.GetPadlock().RPCSingleParam(PADLOCK_OPENREQUEST, new Param1<bool>(true), true, player.GetIdentity());
+			}
+		}
+	}
+}
+
 class ActionSetPadlockPin extends ActionInteractBase {
 	
 	void ActionSetPadlockPin()
